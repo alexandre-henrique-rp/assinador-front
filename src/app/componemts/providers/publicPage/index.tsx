@@ -12,14 +12,12 @@ export default function PublicPageProvider({
   const { data: session } = useSession();
   const PathName = usePathname();
   const router = useRouter()
+  console.log(session)
 
-  if (
-    (PathName !== "/login" && !session) ||
-    (PathName !== "/register" && !session) ||
-    (PathName !== "/reset-password" && !session)
-  ) {
-    router.push("/login");
+  if (!!session) {
+    router.push("/");
   }
+
   if (PathName === "/login" && !session) {
     return <>{children}</>;
   }
@@ -29,9 +27,12 @@ export default function PublicPageProvider({
   if (PathName === "/reset-password" && !session) {
     return <>{children}</>;
   }
-
-  if (!!session) {
-    router.push("/");
+  if (
+    (PathName !== "/login" && !session) ||
+    (PathName !== "/register" && !session) ||
+    (PathName !== "/reset-password" && !session)
+  ) {
+    router.push("/login");
   }
 
   return <>{children}</>;
