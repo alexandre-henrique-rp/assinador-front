@@ -24,7 +24,7 @@ export default function PublicPageProvider({
   if (PathName === "/register" && !session) {
     return <>{children}</>;
   }
-  if (PathName === "/reset-password" && !session) {
+  if (PathName === "/reset-password/" && !session) {
     return <>{children}</>;
   }
   if (

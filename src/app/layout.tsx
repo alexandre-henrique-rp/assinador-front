@@ -29,7 +29,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   // }
 
   return (
-    <html lang="pt-br">
+    <html lang="pt-br" style={{ fontSize: "0.9rem", width: "100vw", height: "100vh" }}>
       <body className={fonts.rubik.variable}>
         <Providers>
           <NextAuSessionProvider>

@@ -9,7 +9,7 @@ export default async function PublicRouter({ children }: PublicRouterProps) {
 
   return (
     <>
-      <Box h={'100vh'} w={'100vw'} fontSize={'1rem'}>
+      <Box h={'100vh'} w={'100vw'}>
         {children}
       </Box>
     </>
