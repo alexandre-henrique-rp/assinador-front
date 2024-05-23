@@ -1,16 +1,10 @@
 import {
   Box,
-  Button,
   Flex,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Heading,
-  Input,
-  Link,
+  Heading
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { LoginAuth } from "../../componemts/login";
+import { LoginAuth } from "./_conponent/form";
 
 export default function Login() {
   return (
@@ -41,7 +35,7 @@ export default function Login() {
         >
           <Box w={"100%"} textAlign={"center"}>
             <Heading color={"#00713D"} fontFamily={"roboto"}>
-              Entrar com{" "}
+              Entrar com
             </Heading>
           </Box>
           <LoginAuth />

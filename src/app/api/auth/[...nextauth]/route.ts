@@ -1,3 +1,4 @@
+import axios from "axios";
 import NextAuth, { NextAuthOptions } from "next-auth"
 import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials"
@@ -18,36 +19,37 @@ const nextAuthOptions: NextAuthOptions = {
             identifier: credentials.email,
             password: credentials.password,
           };
-          const request = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/auth/local`, {
-            method: 'POST',
+          const res = await axios({
+            url: `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/auth/local`,
+            method: "POST", 
+            data: dados,
             headers: {
               "Content-Type": "application/json",
-            },
-            body: JSON.stringify(dados),
-            cache: 'no-store'
+            }
           });
-          const retorno = await request.json();
+
+          const retorno = await res.data;
           const { jwt, user } = retorno;
 
           const {
-            confirmed,
             blocked,
             username,
+            nome,
             id,
-            email,
-            pemission,
-            primeiro_acesso,
+            whatsapp,
+            uuid,
+            email
           } = await user;
 
           const response = {
             jwt: jwt,
             id: id,
-            name: username,
+            name: nome,
+            username: username,
             email: email,
-            confirmed: confirmed,
             blocked: blocked,
-            pemission: pemission,
-            primeiro_acesso,
+            whatsapp: whatsapp,
+            uuid: uuid
           };
 
           if (!jwt || !id || !username || !email) {
@@ -65,10 +67,10 @@ const nextAuthOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: "/login",
-    // signOut: '/auth/signout',
-    // error: '/auth/error', // Error code passed in query string as ?error=
-    verifyRequest: '/verify-request', // (used for check email message)
-    newUser: '/register' // New users will be directed here on first sign in (leave the property out if not of interest)
+    signOut: '/auth/signout',
+    error: '/auth/error', // Error code passed in query string as ?error=
+    verifyRequest: '/auth/verify-request', // (used for check email message)
+    newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
   },
   jwt: {
     secret: process.env.JWT_SIGNING_PRIVATE_KEY,
@@ -93,10 +95,11 @@ const nextAuthOptions: NextAuthOptions = {
         token.jwt = user.jwt;
         token.id = user.id;
         token.name = user.name;
+        token.username = user.username;
         token.email = user.email;
-        token.confirmed = user.confirmed;
         token.blocked = user.blocked;
-        token.pemission = user.pemission; 
+        token.whatsapp = user.whatsapp;
+        token.uuid = user.uuid;
 
         token.expiration = actualDateInSeconds + tokenExpirationInSeconds;
       } else {
@@ -113,8 +116,7 @@ const nextAuthOptions: NextAuthOptions = {
         !token?.id ||
         !token?.name ||
         !token?.email ||
-        !token?.expiration ||
-        !token?.pemission
+        !token?.expiration 
       ) {
         return null;
       }
@@ -123,9 +125,10 @@ const nextAuthOptions: NextAuthOptions = {
         id: token.id as number,
         name: token.name as string,
         email: token.email as string,
-        pemission: token.pemission as string,
-        confirmed: token.confirmed as boolean,
         blocked: token.blocked as boolean,
+        username: token.username as string,
+        whatsapp: token.whatsapp as string,
+        uuid: token.uuid as string
       };
 
       session.token = token.jwt as string;
@@ -137,3 +140,5 @@ const nextAuthOptions: NextAuthOptions = {
 const handler = NextAuth(nextAuthOptions)
 
 export { handler as GET, handler as POST, nextAuthOptions }
+
+
