@@ -18,22 +18,31 @@ export default function PublicPageProvider({
   //   router.push("/");
   // }
 
-  // if (PathName === "/login" && !session) {
-  //   return <>{children}</>;
-  // }
-  // if (PathName === "/register" && !session) {
-  //   return <>{children}</>;
-  // }
-  // if (PathName === "/reset-password" && !session) {
-  //   return <>{children}</>;
-  // }
-  // if (
-  //   (PathName !== "/login" && !session) ||
-  //   (PathName !== "/register" && !session) ||
-  //   (PathName !== "/reset-password" && !session)
-  // ) {
-  //   router.push("/login");
-  // }
+  if (PathName === "/login" && !session) {
+    return <>{children}</>;
+  }
+  if (PathName === "/register" && !session) {
+    return <>{children}</>;
+  }
+  if (PathName === "/reset-password" && !session) {
+    return <>{children}</>;
+  }
+  if (PathName === "/reset-password/*" && !session) {
+    return <>{children}</>;
+  }
+  if (PathName === "/termos/uso" && !session) {
+    return <>{children}</>;
+  }
+  if (PathName === "/termos/privacidade" && !session) {
+    return <>{children}</>;
+  }
+  if (
+    (PathName !== "/login" && !session) ||
+    (PathName !== "/register" && !session) ||
+    (PathName !== "/reset-password" && !session)
+  ) {
+    router.push("/login");
+  }
 
   return <>{children}</>;
 }

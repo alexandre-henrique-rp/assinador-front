@@ -12,7 +12,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { FormEventHandler, useState } from "react";
 
 export const LoginAuth = () => {
@@ -23,14 +23,11 @@ export const LoginAuth = () => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    console.log(user, pass)
     const res: any = await signIn('credentials', {
       email: user,
       password: pass,
       redirect: false,
     });
-
-    console.log(res)
 
     if (res.status !== 200) {
       toast({
@@ -43,6 +40,15 @@ export const LoginAuth = () => {
       router.replace('/');
     }
   };
+
+  const LinkHandleRegister = (e: any)=>{
+    e.preventDefault();
+    router.replace("/register")
+  }
+  const LinkHandleRessetPass = (e: any)=>{
+    e.preventDefault();
+    router.replace("/reset-password")
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -68,6 +74,7 @@ export const LoginAuth = () => {
                 fontFamily={"roboto"}
                 fontSize={"10px"}
                 textDecor={"underline"}
+                onClick={LinkHandleRessetPass}
               >
                 ESQUECI MINHA SENHA
               </Link>
@@ -83,6 +90,7 @@ export const LoginAuth = () => {
                 fontFamily={"roboto"}
                 fontSize={"10px"}
                 textDecor={"underline"}
+                onClick={LinkHandleRegister}
               >
                 CADASTRE-SE
               </Link>

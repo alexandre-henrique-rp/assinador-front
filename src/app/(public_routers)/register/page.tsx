@@ -1,16 +1,10 @@
 import {
   Box,
-  Button,
-  Flex,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Heading,
-  Input,
-  Link,
+  Flex
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { RegisterAuth } from "../../componemts/register";
+import { RegisterAuth } from "./_components/form";
+
 
 export default function Register() {
   return (
@@ -30,12 +24,11 @@ export default function Register() {
             <Image
               src="/LOGO REDE BRASIL RP_B.svg"
               alt="Vercel Logo"
-              width={200}
-              height={300}
+              width={300}
+              height={500}
               priority
             />
           </Flex>
-
           {/* Form */}
           <Box w={"50%"}>
             <RegisterAuth />
