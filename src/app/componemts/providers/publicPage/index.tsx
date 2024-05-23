@@ -24,7 +24,16 @@ export default function PublicPageProvider({
   if (PathName === "/register" && !session) {
     return <>{children}</>;
   }
-  if (PathName === "/reset-password/" && !session) {
+  if (PathName === "/reset-password" && !session) {
+    return <>{children}</>;
+  }
+  if (PathName === "/reset-password/*" && !session) {
+    return <>{children}</>;
+  }
+  if (PathName === "/termos/uso" && !session) {
+    return <>{children}</>;
+  }
+  if (PathName === "/termos/privacidade" && !session) {
     return <>{children}</>;
   }
   if (
