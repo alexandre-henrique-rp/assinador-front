@@ -14,9 +14,9 @@ export default function PublicPageProvider({
   const router = useRouter()
   console.log(session)
 
-  if (!!session) {
-    router.push("/");
-  }
+  // if (!!session) {
+  //   router.push("/");
+  // }
 
   if (PathName === "/login" && !session) {
     return <>{children}</>;

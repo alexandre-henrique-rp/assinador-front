@@ -1,7 +1,7 @@
 import {
   Box,
   Flex,
-  Heading
+  Heading,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { LoginAuth } from "./_conponent/form";
