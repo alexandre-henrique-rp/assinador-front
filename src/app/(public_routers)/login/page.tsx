@@ -1,13 +1,7 @@
 import {
   Box,
-  Button,
   Flex,
-  FormControl,
-  FormHelperText,
-  FormLabel,
   Heading,
-  Input,
-  Link,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { LoginAuth } from "../../componemts/login";

@@ -14,26 +14,26 @@ export default function PublicPageProvider({
   const router = useRouter()
   console.log(session)
 
-  if (!!session) {
-    router.push("/");
-  }
+  // if (!!session) {
+  //   router.push("/");
+  // }
 
-  if (PathName === "/login" && !session) {
-    return <>{children}</>;
-  }
-  if (PathName === "/register" && !session) {
-    return <>{children}</>;
-  }
-  if (PathName === "/reset-password" && !session) {
-    return <>{children}</>;
-  }
-  if (
-    (PathName !== "/login" && !session) ||
-    (PathName !== "/register" && !session) ||
-    (PathName !== "/reset-password" && !session)
-  ) {
-    router.push("/login");
-  }
+  // if (PathName === "/login" && !session) {
+  //   return <>{children}</>;
+  // }
+  // if (PathName === "/register" && !session) {
+  //   return <>{children}</>;
+  // }
+  // if (PathName === "/reset-password" && !session) {
+  //   return <>{children}</>;
+  // }
+  // if (
+  //   (PathName !== "/login" && !session) ||
+  //   (PathName !== "/register" && !session) ||
+  //   (PathName !== "/reset-password" && !session)
+  // ) {
+  //   router.push("/login");
+  // }
 
   return <>{children}</>;
 }
