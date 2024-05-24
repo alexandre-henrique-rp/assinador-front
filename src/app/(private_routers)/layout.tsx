@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { Header } from "../componemts/header";
+import { Header } from "../components/header";
 
 export default function Privaterouter({
   children,

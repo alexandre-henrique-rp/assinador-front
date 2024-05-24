@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { uuid } from "uuidv4";
 
 interface DataUser {
     name: string;
@@ -20,7 +21,8 @@ export async function POST(request: Request) {
             password: data.pass,
             whatsapp: data.tel,
             confirmed: true,
-            role: 1
+            role: 1,
+            uuid2: uuid()
         }
         console.log("dados", dados)
         

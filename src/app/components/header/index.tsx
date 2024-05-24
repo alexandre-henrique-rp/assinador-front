@@ -1,28 +1,25 @@
-"use cliente";
+"use client";
 
 import {
   Avatar,
-  Box,
   Button,
-  Center,
-  CloseButton,
   Flex,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  HStack,
-  IconButton,
-  Input,
   Menu,
   MenuButton,
   MenuDivider,
   MenuItem,
   MenuList,
-  VStack,
+
 } from "@chakra-ui/react";
 import { Logologin } from "../logo ";
+import { signOut } from "next-auth/react";
 
 export const Header = () => {
+
+  const sair = () => {
+    signOut();
+  };
+
   return (
     <Flex
       bg={"#CDCDCD"}
@@ -48,7 +45,7 @@ export const Header = () => {
         <MenuList>
           <MenuItem> Painel </MenuItem>
           <MenuDivider />
-          <MenuItem> Sair </MenuItem>
+          <MenuItem onClick={sair}> Sair </MenuItem>
         </MenuList>
       </Menu>
     </Flex>

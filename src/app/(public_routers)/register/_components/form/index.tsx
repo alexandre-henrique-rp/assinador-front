@@ -25,7 +25,6 @@ export const RegisterAuth = () => {
   const toast = useToast();
   const router = useRouter();
 
-  console.log(Whatapp);
   const handleSubmit: FormEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
 
