@@ -1,5 +1,5 @@
-import { Logologin } from "@/app/componemts/logo ";
-import { VerifyEmailComponent } from "@/app/componemts/reset-password/page";
+import { Logologin } from "@/app/components/logo ";
+import { VerifyEmailComponent } from "@/app/components/reset-password/page";
 import {
   Box,
   Button,
@@ -29,7 +29,11 @@ export default function VerifyEmail() {
         alignItems={"center"}
       >
         <Box pb={"80px"}>
-          <Logologin />
+        <Logologin
+              url="/LOGO REDE BRASIL RP_A.svg"
+              width={200}
+              height={300}
+            />
         </Box>
 
         {/* Branco */}

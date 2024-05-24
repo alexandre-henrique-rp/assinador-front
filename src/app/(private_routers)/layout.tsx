@@ -1,5 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { Header } from "../componemts/header";
+import { Header } from "../components/header";
+import FooterComponent from "../components/Footer";
 
 export default function Privaterouter({
   children,
@@ -12,11 +13,13 @@ export default function Privaterouter({
         flexDir={"column"}
         justifyContent={"space-between"}
         h={"100vh"}
-        w={"100vw"}
+        w={"100%"}
         bg="#F8F8F8"
+        overflow={"auto"}
       >
-        {/* header */}
 
+
+        {/* header */}
         <Box>
           <Header />
         </Box>
@@ -25,7 +28,11 @@ export default function Privaterouter({
 
         {/* rodapé */}
 
-        <Box></Box>
+        <Box>
+
+          <FooterComponent />
+
+        </Box>
       </Flex>
     </>
   );
