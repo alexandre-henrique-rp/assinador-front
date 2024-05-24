@@ -7,6 +7,7 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+
 } from "@chakra-ui/react";
 
 export const VerifyEmailComponent = () => {
@@ -26,6 +27,7 @@ export const VerifyEmailComponent = () => {
           type="email"
           border={"1px solid #00713D"}
           textAlign={"center"}
+
         />
         <FormHelperText
           textAlign={"center"}
@@ -43,6 +45,7 @@ export const VerifyEmailComponent = () => {
           Voltar
         </Button>
         <Button size={"lg"} colorScheme="green">
+
           Enviar
         </Button>
       </Flex>

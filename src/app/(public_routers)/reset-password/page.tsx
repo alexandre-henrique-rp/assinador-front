@@ -1,5 +1,6 @@
 import { Logologin } from "@/app/components/logo ";
 import { VerifyEmailComponent } from "@/app/components/reset-password/page";
+
 import {
   Box,
   Button,
@@ -13,6 +14,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Image from "next/image";
+
 
 export default function VerifyEmail() {
   return (
@@ -29,11 +31,13 @@ export default function VerifyEmail() {
         alignItems={"center"}
       >
         <Box pb={"80px"}>
+
         <Logologin
               url="/LOGO REDE BRASIL RP_A.svg"
               width={200}
               height={300}
             />
+
         </Box>
 
         {/* Branco */}
@@ -57,16 +61,13 @@ export default function VerifyEmail() {
               color="#00713D"
               alignItems={"center"}
               fontWeight={"bold"}
-              >
+            >
               CONFIRME SEU EMAIL
             </Text>
           </Box>
 
           {/* [Texto redefina sua Senha e] */}
-          <Box w={"75%"} 
-        //   pt={"1%"} 
-        //   pb={"1%"}
-        >
+          <Box w={"75%"}>
             <Text
               fontSize={"14px"}
               textAlign={"center"}

@@ -2,17 +2,9 @@ import { Logologin } from "@/app/components/logo ";
 import { ResetPasswordComponent } from "@/app/components/reset-password/uuid/page";
 import {
   Box,
-  Button,
   Flex,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Heading,
-  Input,
-  Link,
   Text,
 } from "@chakra-ui/react";
-import Image from "next/image";
 
 export default function ResetPassword() {
   return (

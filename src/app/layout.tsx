@@ -26,6 +26,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   //   redirect("/");
   // }
 
+
   return (
     <html lang="pt-br" style={{ fontSize: "0.9rem", width: "100vw", height: "100vh" }}>
       <body className={fonts.rubik.variable}>
