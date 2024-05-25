@@ -4,12 +4,15 @@ import Image from "next/image";
 
 interface LogoUrlProps {
   url: string;
+
+  width: number;
+  height: number;
 }
 
-
-export const Logologin = ({url}: LogoUrlProps) => {
-
-  const urlstring=url
+export const Logologin = ({ url, width, height }: LogoUrlProps) => {
+  const urlstring = url;
+  const widthstring = width;
+  const heightstring = height;
   return (
     <>
       <Box
@@ -19,11 +22,15 @@ export const Logologin = ({url}: LogoUrlProps) => {
         <Image
           src={urlstring}
           alt="Vercel Logo"
-          width={300}
-          height={500}
+
+          width={widthstring}
+          height={heightstring}
+
           priority
         />
       </Box>
     </>
   );
+
 };
+

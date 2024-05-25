@@ -21,7 +21,12 @@ export default function ResetPassword() {
         alignItems={"center"}
       >
         <Box  pb={"80px"}>
-          <Logologin url="/LOGO REDE BRASIL RP_C.svg" />
+        <Logologin
+              url="/LOGO REDE BRASIL RP_A.svg"
+              width={200}
+              height={300}
+            />
+          
         </Box>
 
         {/* Branco */}

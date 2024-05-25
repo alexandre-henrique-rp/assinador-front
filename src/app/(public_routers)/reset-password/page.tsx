@@ -1,6 +1,20 @@
 import { Logologin } from "@/app/components/logo ";
 import { VerifyEmailComponent } from "@/app/components/reset-password/page";
-import { Box, Flex, Text } from "@chakra-ui/react";
+
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Heading,
+  Input,
+  Link,
+  Text,
+} from "@chakra-ui/react";
+import Image from "next/image";
+
 
 export default function VerifyEmail() {
   return (
@@ -17,7 +31,13 @@ export default function VerifyEmail() {
         alignItems={"center"}
       >
         <Box pb={"80px"}>
-          <Logologin url="/LOGO REDE BRASIL RP_C.svg" />
+
+        <Logologin
+              url="/LOGO REDE BRASIL RP_A.svg"
+              width={200}
+              height={300}
+            />
+
         </Box>
 
         {/* Branco */}

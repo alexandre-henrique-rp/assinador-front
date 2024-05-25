@@ -12,7 +12,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { FormEventHandler, useState } from "react";
 
 export const LoginAuth = () => {
