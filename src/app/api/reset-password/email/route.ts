@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
-import { UpdateNotUuid } from "../../functions/updateNotUuid";
 import { SendEmail } from "../../functions/sendEmail";
+import { UpdateNotUuid } from "../../functions/updateNotUuid";
 
-
-export async function POST(request: Request) {
+export async function GET(request: Request) {
     try {
         const { searchParams } = new URL(request.url);
         const EmailInformado: any = searchParams.get("email");
@@ -20,18 +19,16 @@ export async function POST(request: Request) {
             },
             cache: 'no-store'
         })
-        const [VerifiqueEmail] = await VerifiqueEmailServer.json();
-        console.log("🚀 ~ POST ~ VerifiqueEmail:", VerifiqueEmail.uuid)
-
-        if (!VerifiqueEmail.uuid) {
-            const uuid = await UpdateNotUuid(VerifiqueEmail.id, 'user')
-            console.log("🚀 ~ POST ~ uuid:", uuid)
-        }
+        const [VerifiqueEmail] = await VerifiqueEmailServer.json()
 
         if (!VerifiqueEmail) {
             return NextResponse.json({ message: "Email não encontrado" }, { status: 404 });
         }
 
+        !VerifiqueEmail.uuid && await UpdateNotUuid(VerifiqueEmail.id, 'user')
+
+        // console.log("link:", `${process.env.NEXT_PUBLIC_LINK}/reset-password/${VerifiqueEmail.uuid}`)
+        // console.log("dados:", VerifiqueEmail)
         const conteudo = `<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -88,8 +85,7 @@ export async function POST(request: Request) {
 </body>
 </html>`;
 
-        const send = await SendEmail(EmailInformado, 'Redefina sua senha', conteudo)
-        console.log(send)
+        await SendEmail(VerifiqueEmail.email, 'Redefina sua senha', conteudo)
         return NextResponse.json({ message: "Email encontrado" }, { status: 200 });
     } catch (error) {
         console.error(error)

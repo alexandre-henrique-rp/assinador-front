@@ -13,16 +13,18 @@ import {
 } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 
-export const LoginAuth = () => {
+export const LoginAuth = (LoginProps: { reload: any }) => {
   const [user, setUser] = useState<string>('');
   const [pass, setPass] = useState<string>('');
+  const [Looad, setLooad] = useState<boolean>(false);
   const toast = useToast();
   const router = useRouter();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    setLooad(true);
     const res: any = await signIn('credentials', {
       email: user,
       password: pass,
@@ -36,6 +38,7 @@ export const LoginAuth = () => {
         duration: 5000,
         position: 'top-right',
       });
+      setLooad(false);
     } else {
       router.replace('/');
     }
@@ -43,12 +46,15 @@ export const LoginAuth = () => {
 
   const LinkHandleRegister = (e: any)=>{
     e.preventDefault();
+    LoginProps.reload(1);
     router.replace("/register")
   }
   const LinkHandleRessetPass = (e: any)=>{
     e.preventDefault();
+    LoginProps.reload(1);
     router.replace("/reset-password")
   }
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -97,7 +103,7 @@ export const LoginAuth = () => {
             </FormHelperText>
           </Box>
           <Box>
-            <Button type="submit" colorScheme={"green"}>ENTRAR</Button>
+            <Button type="submit" isLoading={Looad} colorScheme={"green"}>ENTRAR</Button>
           </Box>
         </Flex>
       </FormControl>

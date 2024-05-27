@@ -7,6 +7,7 @@ import { RegisterAuth } from "./_components/form";
 
 
 export default function Register() {
+
   return (
     <>
       {/* Verde */}

@@ -58,7 +58,7 @@ const nextAuthOptions: NextAuthOptions = {
           }
           return response;
         } catch (e) {
-          console.log(e);
+          // console.log(e);
           return null;
         }
 
