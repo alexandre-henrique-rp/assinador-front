@@ -4,6 +4,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { RegisterAuth } from "./_components/form";
+import { Logologin } from "@/app/components/logo ";
 
 
 export default function Register() {
@@ -22,13 +23,11 @@ export default function Register() {
         <Flex borderRadius={"15px"} bg={"white"} p={"2%"}>
           {/* Imagem */}
           <Flex w={"50%"} justifyContent={"center"} alignItems={"center"}>
-            <Image
-              src="/LOGO REDE BRASIL RP_B.svg"
-              alt="Vercel Logo"
-              width={300}
-              height={500}
-              priority
-            />
+          <Logologin
+      url="/LOGO REDE BRASIL RP_B.svg"
+      width={300}
+      height={400}
+    />
           </Flex>
           {/* Form */}
           <Box w={"50%"}>

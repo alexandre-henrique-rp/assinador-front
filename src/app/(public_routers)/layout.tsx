@@ -9,7 +9,9 @@ interface PublicRouterProps {
 export default async function PublicRouter({ children }: PublicRouterProps) {
   return (
     <>
-      <Box h={"100vh"} w={"100vw"} bg={"#00713D"} fontSize={"0.9rem"}>
+
+      <Box h={'100vh'} w={'100vw'} bg={"#00713D"} >
+
         {children}
       </Box>
     </>
