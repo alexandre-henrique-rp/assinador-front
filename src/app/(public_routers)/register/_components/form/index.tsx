@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/app/loading";
 import {
   Box,
   Button,
@@ -11,8 +12,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import { mask, unMask } from "remask";
+
 
 export const RegisterAuth = () => {
   const [Name, setName] = useState<string>("");
@@ -22,12 +24,14 @@ export const RegisterAuth = () => {
   const [Tel, setTel] = useState<string>("");
   const [Whatapp, setWhatapp] = useState<string>("");
   const [Email, setEmail] = useState<string>("");
+  const [Looad, setLooad] = useState<boolean>(false);
   const toast = useToast();
   const router = useRouter();
 
   const handleSubmit: FormEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
-
+    setLooad(true);
+    
     if (!Name || !User || !Pass || !Email) {
       toast({
         title: "Erro",
@@ -36,6 +40,7 @@ export const RegisterAuth = () => {
         duration: 3000,
         isClosable: true,
       });
+      setLooad(false);
     }
 
     if (Pass !== Pass1) {
@@ -46,8 +51,10 @@ export const RegisterAuth = () => {
         duration: 3000,
         isClosable: true,
       });
+      setLooad(false);
     } else {
       try {
+
         const res = await fetch("/api/register", {
           method: "POST",
           headers: {
@@ -81,6 +88,7 @@ export const RegisterAuth = () => {
           });
           router.push("/login");
         }
+        setLooad(false);
       } catch (error) {
         toast({
           title: "Erro",
@@ -89,16 +97,17 @@ export const RegisterAuth = () => {
           duration: 3000,
           isClosable: true,
         });
+        setLooad(false);
       }
     }
   };
 
   const WhatsAppMask = (e: any) => {
-    const valor = e.target.value;   
+    const valor = e.target.value;
     const valorLinpo = unMask(valor);
-    const masked = mask(valorLinpo, ["(99) 9999-9999","(99) 9 9999-9999"]);
-     setTel(valorLinpo);
-     setWhatapp(masked);
+    const masked = mask(valorLinpo, ["(99) 9999-9999", "(99) 9 9999-9999"]);
+    setTel(valorLinpo);
+    setWhatapp(masked);
   };
 
   return (
@@ -183,6 +192,7 @@ export const RegisterAuth = () => {
                 inlineSize={"100%"}
                 colorScheme={"green"}
                 size={"md"}
+                isLoading={Looad}
               >
                 Cadastrar
               </Button>

@@ -8,6 +8,7 @@ import { Logologin } from "@/app/components/logo ";
 
 
 export default function Register() {
+
   return (
     <>
       {/* Verde */}
