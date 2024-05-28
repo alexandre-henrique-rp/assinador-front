@@ -29,6 +29,7 @@ const nextAuthOptions: NextAuthOptions = {
           });
 
           const retorno = await res.data;
+          console.log("🚀 ~ authorize ~ retorno:", retorno)
           const { jwt, user } = retorno;
 
           const {

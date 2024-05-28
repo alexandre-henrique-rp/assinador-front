@@ -19,7 +19,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     return (
         <html
             lang="pt-br"
-            style={{ fontSize: "0.7rem", width: "100vw", height: "100vh" }}
+            style={{ fontSize: "0.8rem", width: "100vw", height: "100vh" }}
         >
             <NextAuSessionProvider>
                 <PublicPageProvider>
