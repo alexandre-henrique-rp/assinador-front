@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 
 export default function PublicPageProvider({
     children,
@@ -13,28 +13,27 @@ export default function PublicPageProvider({
     const uuid = PathName.split("/")[2];
     const router = useRouter();
 
-    if (PathName === "/login" && !session) {
-        return <>{children}</>;
-    } else if (PathName === "/register" && !session) {
-        return <>{children}</>;
-    } else if (PathName === "/reset-password" && !session) {
-        return <>{children}</>;
-    } else if (PathName === `/reset-password/${uuid}` && !session) {
-        return <>{children}</>;
-    } else if (PathName === "/termos/uso" && !session) {
-        return <>{children}</>;
-    } else if (PathName === "/termos/privacidade" && !session) {
-        return <>{children}</>;
-    } else if (
-        (!session && PathName !== "/register") ||
-        (!session && PathName !== "/reset-password") ||
-        (!session && PathName !== `/reset-password/${uuid}`) ||
-        (!session && PathName !== "/termos/uso") ||
-        (!session && PathName !== "/termos/privacidade")
-    ) {
-        router.push("/login");
-    } else if (!!session) {
-        router.push("/");
+    if (!session) {
+         if (PathName === "/") {
+             router.push("/login");
+         } else if (PathName === "/login") {
+            return <>{children}</>;
+        } else if (PathName === "/register") {
+            return <>{children}</>;
+        } else if (PathName === "/reset-password") {
+            return <>{children}</>;
+        } else if (PathName === `/reset-password/${uuid}`) {
+            return <>{children}</>;
+        } else if (PathName === "/termos/uso") {
+            return <>{children}</>;
+        } else if (PathName === "/termos/privacidade") {
+            return <>{children}</>;
+        }
+    }
+    if (session) {
+        if (PathName === "/login") {
+            router.push("/");
+        }
     }
 
     return <>{children}</>;

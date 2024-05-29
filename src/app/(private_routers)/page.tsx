@@ -6,6 +6,7 @@ import { nextAuthOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import EventosComponent from "./Home/_components/EventosComponent";
 import { redirect } from "next/navigation";
+import Dropzone from "./Home/_components/dropzone";
 
 interface UserProps {
     id: number | null | undefined;
@@ -20,14 +21,13 @@ interface UserProps {
 export default async function HomePage() {
     const session = await getServerSession(nextAuthOptions);
     const user: any = session?.user;
-    console.log("🚀 ~ HomePage ~ user:", user);
 
     if (!user) redirect("/login");
 
     const token: any = process.env.NEXT_API_TOKEN;
     const url: any = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
-    const response = await fetch(`${url}/users/${user?.id}?populate=*`, {
+    const response = await fetch(`${url}/users/${user?.id}?populate=%2A`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -36,7 +36,14 @@ export default async function HomePage() {
         cache: "no-store",
     });
     const retorno = await response.json();
-    // console.log("🚀 ~ HomePage ~ retorno:", retorno);
+    console.log("🚀 ~ HomePage ~ retorno:", retorno)
+
+      const handleFilesDropped = (files: any) => {
+          for (const file of files) {
+              console.log("Arquivo:", file.name);
+              // Aqui você pode fazer o que quiser com os arquivos, por exemplo, enviá-los para um servidor
+          }
+      };
 
     return (
         // [pendentes, analise, finalizados]
@@ -86,7 +93,8 @@ export default async function HomePage() {
                 flexDir={"column"}
                 alignItems={"center"}
             >
-                <Box w={"100%"}>
+                <Dropzone onFilesDropped={handleFilesDropped} />
+                {/* <Box w={"100%"}>
                     <Stack spacing={1} textAlign="center">
                         <Icon
                             mx="auto"
@@ -148,7 +156,7 @@ export default async function HomePage() {
                             no máximo 25MBs
                         </Text>
                     </Stack>
-                </Box>
+                </Box> */}
             </Flex>
         </Flex>
     );

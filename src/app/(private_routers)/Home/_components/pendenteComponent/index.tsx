@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Flex, Text } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 
 export default function PendenteComponent() {
     return (
