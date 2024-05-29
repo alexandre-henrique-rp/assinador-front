@@ -26,7 +26,6 @@ export default function HomePage() {
           <AnaliseComponent />
           <FinalizadosComponents />
         </Flex>
-
         <Flex
           h={"70%"}
           alignItems={"center"}
@@ -36,7 +35,6 @@ export default function HomePage() {
           <EventosComponent />
         </Flex>
       </Flex>
-
       <Flex
         h={"70%"}
         w={"40%"}
