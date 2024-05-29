@@ -25,10 +25,10 @@ export const GeralLoginProps = () => {
   return (
     <>
       <Box w={"100%"} h={"100%"}>
-        <Flex w={"100%"} justifyContent={"center"} pt={"5rem"}>
+        <Flex w={"100%"} justifyContent={"center"} pt={{md: "3rem" ,'2xl': "5rem"}}>
           <Logologin
             url="/LOGO REDE BRASIL RP_C.svg"
-            width={200}
+            width={400}
             height={300}
           />
         </Flex>

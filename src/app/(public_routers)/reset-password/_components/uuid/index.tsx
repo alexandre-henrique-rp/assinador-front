@@ -50,7 +50,7 @@ export const ResetPasswordComponent = (IdProps: IdProps) => {
             });
             const response = await request.json();
             if (request.status !== 200) {
-                throw {message: response.message};
+                throw { message: response.message };
                 // toast({
                 //     title: "Erro",
                 //     description: response.message,
@@ -68,7 +68,8 @@ export const ResetPasswordComponent = (IdProps: IdProps) => {
                 isClosable: true,
             });
             setLoad(false);
-            // router.push("/login");
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            router.push("/login");
         } catch (error: any) {
             console.log(error.message);
             toast({
@@ -94,19 +95,19 @@ export const ResetPasswordComponent = (IdProps: IdProps) => {
                     color={"#00713D"}
                     fontFamily={"roboto"}
                     fontSize={"25px"}
-                    mt={"25px"}
+                    mt={"3rem"}
                 ></FormLabel>
                 <Input
                     placeholder="Insira sua Senha"
                     size={"lg"}
-                    type="text"
+                    type="password"
                     border={"1px solid #00713D"}
                     onChange={(e) => setPass1(e.target.value)}
                 />
                 <Input
                     placeholder="Confirme sua Senha"
                     size={"lg"}
-                    type="text"
+                    type="password"
                     border={"1px solid #00713D"}
                     mt={"2%"}
                     onChange={(e) => setPass2(e.target.value)}

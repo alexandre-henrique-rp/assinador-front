@@ -44,8 +44,8 @@ export default function GealResetPasswordProps(IdProps: IdProps) {
             >
                 <Box pb={"80px"}>
                     <Logologin
-                        url="/LOGO REDE BRASIL RP_A.svg"
-                        width={200}
+                        url="/LOGO REDE BRASIL RP_C.svg"
+                        width={400}
                         height={300}
                     />
                 </Box>
@@ -54,10 +54,10 @@ export default function GealResetPasswordProps(IdProps: IdProps) {
                 <Flex
                     shadow={"2xl"}
                     borderRadius={"15px"}
-                    w={"600px"}
-                    h={"300px"}
+                    w={"55rem"}
+                    // h={"300px"}
                     bg={"white"}
-                    p={"25px"}
+                    p={"2rem"}
                     gap={"-10px"}
                     flexDir={"column"}
                     justifyContent={"center"}
@@ -65,22 +65,20 @@ export default function GealResetPasswordProps(IdProps: IdProps) {
                 >
                     {/* [Texto redefina sua Senha e] */}
                     <Box w={"100%"}>
-                        {" "}
                         <Text
-                            w={"50%%"}
+                            w={"100%"}
                             fontSize={"25px"}
                             textAlign={"center"}
                             color="#00713D"
                             alignItems={"center"}
                             fontWeight={"bold"}
                         >
-                            {" "}
-                            REDEFINA SUA SENHA:{" "}
+                            REDEFINA SUA SENHA:
                         </Text>
                     </Box>
                     {/* Form */}
                     <Box w={"75%"}>
-                        <ResetPasswordComponent id={id} load={detectLoad}/>
+                        <ResetPasswordComponent id={id} load={detectLoad} />
                     </Box>
                 </Flex>
             </Flex>
