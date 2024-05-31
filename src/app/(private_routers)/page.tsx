@@ -22,28 +22,28 @@ export default async function HomePage() {
     const session = await getServerSession(nextAuthOptions);
     const user: any = session?.user;
 
-    if (!user) redirect("/login");
+    // if (!user) redirect("/login");
 
-    const token: any = process.env.NEXT_API_TOKEN;
-    const url: any = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+    // const token: any = process.env.NEXT_API_TOKEN;
+    // const url: any = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
-    const response = await fetch(`${url}/users/${user?.id}?populate=%2A`, {
-        method: "GET",
-        headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-        },
-        cache: "no-store",
-    });
-    const retorno = await response.json();
-    console.log("🚀 ~ HomePage ~ retorno:", retorno)
+    // const response = await fetch(`${url}/users/${user?.id}?populate=%2A`, {
+    //     method: "GET",
+    //     headers: {
+    //         Authorization: `Bearer ${token}`,
+    //         "Content-Type": "application/json",
+    //     },
+    //     cache: "no-store",
+    // });
+    // const retorno = await response.json();
+    // console.log("🚀 ~ HomePage ~ retorno:", retorno)
 
-      const handleFilesDropped = (files: any) => {
-          for (const file of files) {
-              console.log("Arquivo:", file.name);
-              // Aqui você pode fazer o que quiser com os arquivos, por exemplo, enviá-los para um servidor
-          }
-      };
+    //   const handleFilesDropped = (files: any) => {
+    //       for (const file of files) {
+    //           console.log("Arquivo:", file.name);
+    //           // Aqui você pode fazer o que quiser com os arquivos, por exemplo, enviá-los para um servidor
+    //       }
+    //   };
 
     return (
         // [pendentes, analise, finalizados]
@@ -93,7 +93,7 @@ export default async function HomePage() {
                 flexDir={"column"}
                 alignItems={"center"}
             >
-                <Dropzone onFilesDropped={handleFilesDropped} />
+                {/* <Dropzone onFilesDropped={handleFilesDropped} /> */}
                 {/* <Box w={"100%"}>
                     <Stack spacing={1} textAlign="center">
                         <Icon
