@@ -42,20 +42,17 @@ export const Header = () => {
         (async () => {
             const res = await fetch(`/api/User/get/${id}`);
             const data = await res.json();
-            console.log("🚀 ~ data:", data.avatar.url);
+            console.log("🚀 ~ data:", data);
             setUser(data);
             console.log(
                 "🚀 ~ user:",
                 `http://127.0.0.1:1337${user?.avatar.url}`
             );
         })();
-    }, [id, user?.avatar.url]);
+    }, [id, user?.avatar?.url]);
 
-    const AvatarIcon = user?.avatar?.url
-        ? `http://127.0.0.1:1337${user?.avatar.url}`
-        : "";
-        const nomeAvatar = user?.nome ? user?.nome : ''
-      
+    const AvatarIcon = user?.avatar?.url && `http://127.0.0.1:1337${user?.avatar?.url}`;
+    const nomeAvatar = user?.nome && user?.nome;
 
     return (
         <>
