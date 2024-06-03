@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Logologin } from "@/app/components/logo ";
 import { Box, Heading, Text, UnorderedList, ListItem, Flex } from "@chakra-ui/react";
 

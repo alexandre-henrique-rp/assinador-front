@@ -1,17 +1,18 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 
 export default function PublicPageProvider({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const { data: session } = useSession();
-    const PathName = usePathname();
-    const uuid = PathName.split("/")[2];
-    const router = useRouter();
+    // const { data: session } = useSession();
+    // const PathName = usePathname();
+    // const uuid = PathName.split("/")[2];
+    // const router = useRouter();
+
 
     // if (PathName === "/login" && !session) {
     //     return <>{children}</>;
@@ -35,6 +36,7 @@ export default function PublicPageProvider({
     //     router.push("/login");
     // } else if (!!session) {
     //     router.push("/");
+
     // }
 
     return <>{children}</>;

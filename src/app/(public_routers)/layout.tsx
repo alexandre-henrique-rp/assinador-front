@@ -11,7 +11,6 @@ export default async function PublicRouter({ children }: PublicRouterProps) {
     <>
 
       <Box h={'100vh'} w={'100vw'} bg={"#00713D"} >
-
         {children}
       </Box>
     </>

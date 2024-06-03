@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Box, Button, Center, Heading, Text, VStack, Input, Icon } from "@chakra-ui/react";
 import { CheckCircleIcon } from '@chakra-ui/icons'
 
@@ -16,7 +17,7 @@ function VerificadorPage() {
             Selecione o arquivo em seu computador ou arraste-o para o campo abaixo. Se desejar ter o relatório completo da validação, insira também a identificação da assinatura. Caso não queira enviar o documento, insira apenas o código da identificação no tópico abaixo.
           </Text>
           <Text mb={4} color="gray.700">
-            Dica: o documento assinado tem a palavra "signed" no final de seu nome.
+            Dica: o documento assinado tem a palavra 'signed' no final de seu nome.
           </Text>
           <Text mb={4} color="gray.700">
             Ex: documento_signed.pdf
