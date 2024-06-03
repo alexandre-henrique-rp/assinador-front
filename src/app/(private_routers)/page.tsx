@@ -21,8 +21,6 @@ export default async function HomePage() {
     const session = await getServerSession(nextAuthOptions);
     const user: any = session?.user;
 
-    // if (!user) redirect("/login");
-
     const token: any = process.env.NEXT_API_TOKEN;
     const url: any = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 

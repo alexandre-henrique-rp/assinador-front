@@ -78,7 +78,6 @@ const Dropzone = () => {
                 h={"100%"}
                 bg={"blue.100"}
                 position="relative"
-                // onDragEnter={(event) => event.preventDefault()}
                 onDragOver={(event) => event.preventDefault()}
                 onDrop={handleDrop}
                 justifyContent={"center"}
@@ -142,7 +141,7 @@ const Dropzone = () => {
                                 color: "gray.50",
                             }}
                         >
-                            Arquivos <b>PDF, DOC, DOCX, JPEG, JPG, PNG, BMP</b>{" "}
+                            Arquivos <b>PDF, DOC, DOCX</b>{" "}
                             no máximo 25MBs
                         </Text>
                     </Stack>
