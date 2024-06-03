@@ -1,8 +1,39 @@
 "use client";
 
-import { Box, Divider, Flex, Link, Text } from "@chakra-ui/react";
+import CardLyout from "@/app/components/card";
+import CardAssinatura from "@/app/components/card/cardAssinatura";
+import CardName from "@/app/components/card/cardName";
+import CardStatus from "@/app/components/card/status";
+import {
+    Box,
+    Divider,
+    Flex,
+    Link,
+    Table,
+    TableContainer,
+    Tbody,
+    Td,
+    Text,
+    Tr,
+} from "@chakra-ui/react";
 
-export default function EventosComponent() {
+interface Props {
+    docs: [
+        {
+            id: number;
+            nome: string;
+            version: number;
+            createdAt: string;
+            updatedAt: string;
+            publishedAt: string;
+            uuid: string;
+            status: boolean;
+        }
+    ];
+}
+
+export default function EventosComponent(Dados: Props) {
+    console.log("🚀 ~ file: index.tsx:", Dados.docs);
     return (
         <Flex
             shadow={"2xl"}
@@ -14,7 +45,7 @@ export default function EventosComponent() {
             justifyContent={"left"}
             alignItems={"left"}
         >
-            TEXTO SUPERIOR ESQUERDO
+            {/* TEXTO SUPERIOR ESQUERDO */}
             <Text
                 w={"100%"}
                 fontSize={"20px"}
@@ -28,7 +59,31 @@ export default function EventosComponent() {
             </Text>
 
             {/* LOCAL AONDE VAI FICAR OS ARQUIVOS DO CLIENTE */}
-            <Box w={"100%"} h={"100%"} p={"140px"}></Box>
+            <Flex
+                w={"100%"}
+                h={"30vh"}
+                flexDir={"column"}
+                py={"10px"}
+                pe={"15px"}
+                gap={"1rem"}
+                overflowY={"auto"}
+            >
+                {!Dados.docs && null}
+                {Dados.docs &&
+                    Dados.docs.map((doc) => {
+                        return (
+                            <>
+                                <Link href={`/enviar-documentos/${doc.uuid}`}>
+                                    <CardLyout key={doc.id}>
+                                        <CardName nome={doc.nome} />
+                                        <CardStatus status={doc.status} />
+                                        <CardAssinatura id={doc.id} />
+                                    </CardLyout>
+                                </Link>
+                            </>
+                        );
+                    })}
+            </Flex>
 
             {/* TEXTO INFERIOR DIREITO */}
             <Text

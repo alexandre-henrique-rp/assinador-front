@@ -4,6 +4,7 @@ import { uuid } from "uuidv4";
 import { nextAuthOptions } from "../../auth/[...nextauth]/route";
 
 
+
 export async function POST(request: Request) {
     try {
         const File = await request.formData();
@@ -14,7 +15,7 @@ export async function POST(request: Request) {
         const Envio = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/upload`, {
             method: 'POST',
             headers: {
-                "Authorization": `Bearer ${process.env.NEXT_API_TOKEN}`,
+                "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
             },
             body: File,
             cache: 'no-store'
@@ -23,11 +24,10 @@ export async function POST(request: Request) {
         if (retornoArquivo.error) throw retornoArquivo.error;
 
         const DocPost = retornoArquivo.map(async(item: any) => {
-            console.log("🚀 ~ POST ~ item:", item.name);
             const dataDoc = {
                 data: {
                     nome: item.name.split(".")[0],
-                    version: 1,
+                    version: 0,
                     doc: item.id,
                     user: User?.user?.id,
                     status: false,
@@ -39,14 +39,13 @@ export async function POST(request: Request) {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${process.env.NEXT_API_TOKEN}`,
+                    "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
                 },
                 body: JSON.stringify(dataDoc),
                 cache: 'no-store'
             });
             const retorno = await response.json();
             if (retorno.error) throw retorno.error;
-            console.log("🚀 ~ POST ~ retorno:", retorno);
         });
 
         await Promise.all(DocPost);

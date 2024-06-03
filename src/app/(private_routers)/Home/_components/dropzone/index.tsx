@@ -1,6 +1,15 @@
 "use client";
 import { useState } from "react";
-import { Box, Button, Flex, Icon, Input, Stack, Text, useToast } from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    Flex,
+    Icon,
+    Input,
+    Stack,
+    Text,
+    useToast,
+} from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 
 const Dropzone = () => {
@@ -13,23 +22,49 @@ const Dropzone = () => {
 
         if (event.dataTransfer.files) {
             const newFiles = Array.from(event.dataTransfer.files);
-            setFiles([...Files, ...newFiles]);
-            console.log("newFiles", newFiles);
+            setFiles(newFiles);
+            const [newFileNames] = newFiles.map((file) => file.name);
+            const [newFileTypes] = newFiles.map((file) => file.type);
+            const [newFileSize] = newFiles.map((file) => file.size);
+
+            if (newFileSize > 26214400) {
+                toast({
+                    title: "Arquivo muito grande",
+                    description: "Por favor, envie um arquivo menor.",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                    position: "top-right",
+                });
+            } else if (newFileTypes === "application/pdf") {
+                toast({
+                    title: `Arquivo "${newFileNames}" esta prointo para ser enviado`,
+                    description: `se o arquivo estiver correto, clique no botão enviar`,
+                    status: "info",
+                    duration: 10000,
+                    isClosable: true,
+                    position: "top-right",
+                });
+            } else {
+                toast({
+                    title: `Arquivo Não compatível`,
+                    description: `a extensão do arquivo deve ser .pdf`,
+                    status: "info",
+                    duration: 10000,
+                    isClosable: true,
+                    position: "top-right",
+                });
+            }
         }
     };
 
-    const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleUpload = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         if (Files.length === 0) return;
 
         const formData = new FormData();
         Files.forEach((file) => {
             formData.append("files", file);
-        });
-
-        // Debug: Log the formData content without using entries()
-        formData.forEach((value, key) => {
-            console.log(`${key}: ${value}`);
         });
 
         try {
@@ -44,12 +79,12 @@ const Dropzone = () => {
                     status: "success",
                     duration: 9000,
                     isClosable: true,
-                })
+                });
                 setFiles([]); // Limpar o estado dos arquivos
                 refresh();
             } else {
                 console.error("Falha ao enviar arquivos:", response.statusText);
-               throw { message: "Falha ao enviar arquivos" };
+                throw { message: "Falha ao enviar arquivos" };
             }
         } catch (error: any) {
             toast({
@@ -64,15 +99,6 @@ const Dropzone = () => {
 
     return (
         <>
-            <Button
-                w={"100%"}
-                onClick={() => setFiles([])}
-                py={6}
-                colorScheme="red"
-                hidden={Files.length === 0 ? true : false}
-            >
-                Limpar arquivos
-            </Button>
             <Flex
                 w={"100%"}
                 h={"100%"}
@@ -141,21 +167,33 @@ const Dropzone = () => {
                                 color: "gray.50",
                             }}
                         >
-                            Arquivos <b>PDF, DOC, DOCX</b>{" "}
-                            no máximo 25MBs
+                            Arquivos <b>PDF</b> no máximo 25MBs
                         </Text>
                     </Stack>
                 </Box>
             </Flex>
-            <Button
-                w={"100%"}
-                onClick={handleUpload}
-                py={6}
-                colorScheme="green"
+            <Flex
                 hidden={Files.length === 0 ? true : false}
+                w={"100%"}
+                justifyContent={"space-between"}
             >
-                Subir Arquivos
-            </Button>
+                <Button
+                    w={"100%"}
+                    onClick={() => setFiles([])}
+                    py={6}
+                    colorScheme="red"
+                >
+                    Limpar arquivos
+                </Button>
+                <Button
+                    w={"100%"}
+                    onClick={handleUpload}
+                    py={6}
+                    colorScheme="green"
+                >
+                    Enviar Arquivos
+                </Button>
+            </Flex>
         </>
     );
 };
