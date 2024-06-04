@@ -14,7 +14,7 @@ export default function EventosComponent() {
             justifyContent={"left"}
             alignItems={"left"}
         >
-            TEXTO SUPERIOR ESQUERDO
+            {/* TEXTO SUPERIOR ESQUERDO */}
             <Text
                 w={"100%"}
                 fontSize={"20px"}

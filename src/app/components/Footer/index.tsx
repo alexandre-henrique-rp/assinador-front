@@ -9,7 +9,7 @@ export default function FooterComponent() {
   return (
     <Flex
       w={"100%"}
-      h={"100px"}
+      h={"60px"}
       bg={bg}
       justifyContent={"space-evenly"}
       alignItems={"center"}
@@ -31,7 +31,7 @@ export default function FooterComponent() {
           Termos de Uso
         </Button>
         <Button variant="link" color={"white"} size="sm">
-          Politica de Cookies
+          Documentação
         </Button>
         <Button variant="link" color={"white"} size="sm">
           Politica de Privacidade

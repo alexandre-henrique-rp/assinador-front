@@ -202,8 +202,8 @@ export const RegisterAuth = () => {
                 fontFamily={"roboto"}
                 fontSize={"16px"}
               >
-                Ao clickar em Cadastrar você concorda com os {""}
-                <Link>Termos de Uso </Link>e {""}
+                Ao clickar em Cadastrar você concorda com os 
+                <Link>Termos de Uso </Link>e 
                 <Link> Politica de Privacidade </Link>
               </FormLabel>
             </Box>
