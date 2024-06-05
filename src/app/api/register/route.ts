@@ -22,7 +22,7 @@ export async function POST(request: Request) {
             whatsapp: data.tel,
             confirmed: true,
             role: 1,
-            uuid2: uuid()
+            uuid: uuid()
         }
         console.log("dados", dados)
         
