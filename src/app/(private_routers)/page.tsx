@@ -5,7 +5,8 @@ import FinalizadosComponents from "./Home/_components/finalizadosComponent";
 import { nextAuthOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import EventosComponent from "./Home/_components/EventosComponent";
-import  Dropzone  from "./Home/_components/dropzone";
+
+import Dropzone from "./Home/_components/dropzone";
 
 interface UserProps {
     id: number | null | undefined;
@@ -21,7 +22,9 @@ export default async function HomePage() {
     const session = await getServerSession(nextAuthOptions);
     const user: any = session?.user;
 
-    const token: any = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
+
+    const token: any = process.env.NEXT_API_TOKEN;
+
     const url: any = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
     const response = await fetch(`${url}/users/${user?.id}?populate=%2A`, {
@@ -35,12 +38,12 @@ export default async function HomePage() {
     const retorno = await response.json();
     console.log("🚀 ~ HomePage ~ retorno:", retorno.docs)
 
-    //   const handleFilesDropped = (files: any) => {
-    //       for (const file of files) {
-    //           console.log("Arquivo:", file.name);
-    //           // Aqui você pode fazer o que quiser com os arquivos, por exemplo, enviá-los para um servidor
-    //       }
-    //   };
+      const handleFilesDropped = (files: any) => {
+          for (const file of files) {
+              console.log("Arquivo:", file.name);
+              // Aqui você pode fazer o que quiser com os arquivos, por exemplo, enviá-los para um servidor
+          }
+      };
 
     return (
         // [pendentes, analise, finalizados]

@@ -167,7 +167,10 @@ const Dropzone = () => {
                                 color: "gray.50",
                             }}
                         >
-                            Arquivos <b>PDF</b> no máximo 25MBs
+
+                            Arquivos <b>PDF, DOC, DOCX</b>{" "}
+                            no máximo 25MBs
+
                         </Text>
                     </Stack>
                 </Box>
