@@ -15,11 +15,17 @@ import {
     Text,
     useToast,
 } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import { mask, unMask } from "remask";
+import { uuid } from "uuidv4";
 
 export const DadosPessoaisComponent = () => {
+    const { data: session } = useSession();
+    const User: any = session?.user;
+    const id = User?.id;
+
     const [Name, setName] = useState<string>("");
     const [Cpf, setCpf] = useState<string>("");
     const [Cnh, setCnh] = useState<string>("");
@@ -35,15 +41,107 @@ export const DadosPessoaisComponent = () => {
     const [Uf, setUf] = useState<string>("");
     const [Numero, setNumero] = useState<string>("");
     const [Email, setEmail] = useState<string>("");
+    const [Genero, setGenero] = useState<string>("");
+    const [Escolaridade, setEscolaridade] = useState<string>("");
+    const [DataNascimento, setDataNascimento] = useState<string>("");
     const [Looad, setLooad] = useState<boolean>(false);
     const toast = useToast();
     // const router = useRouter();
 
+    useEffect(() => {
+        (async () => {
+            const res = await fetch(`/api/User/get/${id}`);
+            const resp = await res.json();
+console.log(resp)
+            const CepMask = (data: any) => {
+                const valor = data;
+                const valorLinpo = unMask(valor);
+                const masked = mask(valorLinpo, ["99999-999"]);
+                return masked
+            };
+
+
+
+            const WhatsAppMask = (data: any) => {
+                const valor = data;
+                const valorLinpo = unMask(valor);
+                const masked = mask(valorLinpo, ["(99) 9999-9999", "(99) 9 9999-9999"]);
+                return masked;
+            };
+        
+            const CpfMask = (data: any) => {
+                const valor = data;
+                const valorLinpo = unMask(valor);
+                const masked = mask(valorLinpo, ["999.999.999-99"]);
+                return masked;
+            };
+        
+            const CnhMask = (data: any) => {
+                const valor = data;
+                const valorLinpo = unMask(valor);
+                const masked = mask(valorLinpo, ["99999999999"]);
+               return masked;
+            };
+
+
+            setName(resp?.nome);
+            setCpf(CpfMask(resp?.Cpf_number));
+            setCnh(CnhMask(resp?.cnh_number));
+            setWhatapp(WhatsAppMask(resp?.whatsapp));
+            setCnhFile(resp?.fotos_cnh?.url);
+            setRgFile(resp?.fotos_rg?.url);
+            setCep(resp?.cep);
+            setCep2(CepMask(resp?.cep));
+            setRua(resp?.rua);
+            setBairro(resp?.bairro);
+            setCidade(resp?.cidade);
+            setComplemento(resp?.complemento);
+            setUf(resp?.estado);
+            setNumero(resp?.numero);
+            setEmail(resp?.email);
+            setGenero(resp?.genero);
+            setEscolaridade(resp?.escolaridade);
+            setDataNascimento(resp?.data_nascimento);
+        })();
+    },[id])
     const handleSubmit: FormEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault();
         setLooad(true);
+        try {
+            
+            const data = {
+                cnh_number: Cnh,
+                Cpf_number: Cpf,
+                nome: Name,
+                whatsapp: Whatapp,
+                email: Email,
+                foto_rg: RgFile,
+                foto_cnh: CnhFile,
+                cep: Cep,
+                cidade: Cidade,
+                bairro: Bairro,
+                complemento: Complemento,
+                estado: Uf,
+                numero: Numero,
+                rua: Rua,
+                genero: Genero,
+                Escolaridade: Escolaridade,
+            };
+            const rest = await fetch(`/api/User/put/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+            const response = await rest.json();
+            console.log(response);
+            setLooad(false);
+        } catch (error) {
+            setLooad(false);
+            console.log(error);
+        }
     };
-
     const WhatsAppMask = (e: any) => {
         const valor = e.target.value;
         const valorLinpo = unMask(valor);
@@ -147,7 +245,14 @@ export const DadosPessoaisComponent = () => {
                                 >
                                     Data de Nascimento
                                 </FormLabel>
-                                <Input variant="flushed" type="date" />
+                                <Input
+                                    variant="flushed"
+                                    value={DataNascimento}
+                                    onChange={(e) =>
+                                        setDataNascimento(e.target.value)
+                                    }
+                                    type="date"
+                                />
                             </FormControl>
 
                             <FormControl
@@ -217,10 +322,12 @@ export const DadosPessoaisComponent = () => {
                                 <Select
                                     variant="flushed"
                                     size="md"
+                                    value={Genero}
+                                    onChange={(e) => setGenero(e.target.value)}
                                     placeholder="Selecione Seu Gênero"
                                 >
-                                    <option value="option1">Masculino</option>
-                                    <option value="option2">Feminino</option>
+                                    <option value="masculino">Masculino</option>
+                                    <option value="feminino">Feminino</option>
                                 </Select>
                             </FormControl>
 
@@ -243,35 +350,34 @@ export const DadosPessoaisComponent = () => {
                                 <Select
                                     variant="flushed"
                                     size="md"
+                                    value={Escolaridade}
+                                    onChange={(e) =>
+                                        setEscolaridade(e.target.value)
+                                    }
                                     placeholder="Selecione Sua Escolaridade"
                                 >
-                                    <option value="option1">
+                                    <option value="Ensino Fundamental Incompleto">
                                         Ensino Fundamental Incompleto
                                     </option>
-                                    <option value="option2">
+                                    <option value="Ensino Fundamental Completo">
                                         Ensino Fundamental Completo
                                     </option>
-                                    <option value="option3">
+                                    <option value="Ensino Médio incompleto">
                                         Ensino Médio incompleto
                                     </option>
-                                    <option value="option4">
+                                    <option value="Ensino Médio Completo">
                                         Ensino Médio Completo
                                     </option>
-                                    <option value="option5">
+                                    <option value="Ensino Superior Incompleto">
                                         Ensino Superior Incompleto
                                     </option>
-                                    <option value="option6">
-                                        {" "}
+                                    <option value="Ensino Superior Completo">
                                         Ensino Superior Completo
                                     </option>
                                 </Select>
                             </FormControl>
 
-                            <FormControl
-                                isRequired
-                                as={GridItem}
-                                colSpan={[6, 3]}
-                            >
+                            <FormControl as={GridItem} colSpan={[6, 3]}>
                                 <FormLabel
                                     fontSize="sm"
                                     fontWeight="md"
@@ -289,11 +395,7 @@ export const DadosPessoaisComponent = () => {
                                     onChange={(e) => setCnhFile(e.target.value)}
                                 ></Input>
                             </FormControl>
-                            <FormControl
-                                isRequired
-                                as={GridItem}
-                                colSpan={[6, 3]}
-                            >
+                            <FormControl as={GridItem} colSpan={[6, 3]}>
                                 <FormLabel
                                     fontSize="sm"
                                     fontWeight="md"
