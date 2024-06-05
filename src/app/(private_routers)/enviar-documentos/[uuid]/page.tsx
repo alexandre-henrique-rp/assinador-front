@@ -1,17 +1,47 @@
-import { InfoOutlineIcon } from "@chakra-ui/icons";
 import {
     Box,
     Button,
     Flex,
     Icon,
+    Image,
     Input,
     InputGroup,
     InputRightElement,
     Text,
     Tooltip,
 } from "@chakra-ui/react";
+import { PdfRenderProps } from "./_components/PdfRender";
 
-export default function EnviarDocumentosPage() {
+export default async function EnviarDocumentosPage({
+    params,
+}: {
+    params: { uuid: string };
+}) {
+    const { uuid } = params;
+    const url = `process.env.NEXT_PUBLIC_STRAPI_API_URL}/docs?filters[uuid][$eq]=${uuid}&populate=*`;
+    const request = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/docs?filters[uuid][$eq]=${uuid}&populate=*`,
+        {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
+                "Content-Type": "application/json",
+            },
+            cache: "no-store",
+        }
+    );
+
+    const retorno = await request.json();
+    console.log(
+        "🚀 ~ EnviarDocumentosPage ~ retorno:",
+        retorno.data[0].attributes.doc
+    );
+    console.log(
+        "🚀 ~ EnviarDocumentosPage:",
+         
+            retorno.data[0].attributes.doc.data.attributes.url
+    );
+
     return (
         <Flex
             w={"100%"}
@@ -26,7 +56,7 @@ export default function EnviarDocumentosPage() {
                 alignItems={"center"}
                 gap={"15px"}
             >
-                <Box w={"80%"}>
+                {/* <Box w={"80%"}>
                     <InputGroup w={"100%"} size="lg">
                         <Input
                             padding={"20px"}
@@ -39,8 +69,9 @@ export default function EnviarDocumentosPage() {
                             </Button>
                         </InputRightElement>
                     </InputGroup>
-                </Box>
+                </Box> */}
 
+                {/* render pdf */}
                 <Box
                     w={"80%"}
                     h={"100%"}
@@ -48,7 +79,9 @@ export default function EnviarDocumentosPage() {
                     border={"6px solid #00713D"}
                     borderRadius={"10px"}
                     p={"25%"}
-                ></Box>
+                >
+                    <PdfRenderProps fileUrl={retorno.data[0].attributes.doc.data.attributes.url} />
+                </Box>
             </Flex>
 
             <Flex
@@ -75,10 +108,14 @@ export default function EnviarDocumentosPage() {
 
                 <Box>
                     <Text p={"2px"} fontSize={"sm"}>
-                        Nome: 
+                        Nome:
                     </Text>
-                    <Text p={"2px"} fontSize={"sm"}>Telefone: </Text>
-                    <Text p={"2px"} fontSize={"sm"}>Data de Envio: </Text>
+                    <Text p={"2px"} fontSize={"sm"}>
+                        Telefone:{" "}
+                    </Text>
+                    <Text p={"2px"} fontSize={"sm"}>
+                        Data de Envio:{" "}
+                    </Text>
                 </Box>
 
                 <Box h={"60%"} justifyContent={"left"}>

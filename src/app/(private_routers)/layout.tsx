@@ -19,8 +19,6 @@ export default function Privaterouter({
         bg="#F8F8F8"
         overflow={"auto"}
       >
-
-
         {/* header */}
         <Box>
           <Header />

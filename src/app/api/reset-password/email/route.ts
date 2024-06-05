@@ -15,7 +15,7 @@ export async function GET(request: Request) {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${process.env.NEXT_API_TOKEN}`,
+                "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
             },
             cache: 'no-store'
         })
