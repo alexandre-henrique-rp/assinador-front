@@ -23,11 +23,11 @@ export default async function HomePage() {
     const user: any = session?.user;
 
 
-    const token: any = process.env.NEXT_API_TOKEN;
+    const token: any = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
 
     const url: any = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
-    const response = await fetch(`${url}/users/${user?.id}?populate=%2A`, {
+    const response = await fetch(`${url}/users/${user?.id}?populate=*`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ export default async function HomePage() {
         cache: "no-store",
     });
     const retorno = await response.json();
-    console.log("🚀 ~ HomePage ~ retorno:", retorno.docs)
+    console.log("🚀 ~ HomePage ~ retorno:", retorno)
 
       const handleFilesDropped = (files: any) => {
           for (const file of files) {

@@ -10,30 +10,30 @@ export default function Privaterouter({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <Flex
-        flexDir={"column"}
-        justifyContent={"space-between"}
-        h={"100vh"}
-        w={"100%"}
-        bg="#F8F8F8"
-        overflow={"auto"}
-      >
-        {/* header */}
-        <Box>
-          <Header />
-        </Box>
+      <>
+          <Flex
+              flexDir={"column"}
+              justifyContent={"space-between"}
+              h={"100vh"}
+              w={"100vw"}
+              bg="#F8F8F8"
+              overflow={"auto"}
+          >
+              {/* header */}
+              <Box h={"10%"} w={"100%"}>
+                  <Header />
+              </Box>
 
-        <Box>{children}</Box>
+              <Box h={"full"} w={"100%"} p={4}>
+                  {children}
+              </Box>
 
-        {/* rodapé */}
+              {/* rodapé */}
 
-        <Box>
-
-          <FooterComponent />
-
-        </Box>
-      </Flex>
-    </>
+              <Box h={"7%"} w={"100%"}>
+                  <FooterComponent />
+              </Box>
+          </Flex>
+      </>
   );
 }

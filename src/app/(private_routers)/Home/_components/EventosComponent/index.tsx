@@ -33,7 +33,6 @@ interface Props {
 }
 
 export default function EventosComponent(Dados: Props) {
-    console.log("🚀 ~ file: index.tsx:", Dados.docs);
     return (
         <Flex
             shadow={"2xl"}

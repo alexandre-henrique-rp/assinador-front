@@ -1,18 +1,26 @@
-'use client';
-import { Box, Image } from "@chakra-ui/react";
 
+import { Box } from "@chakra-ui/react";
 
 interface Props {
-    fileUrl: string;
+    id: string;
 }
 
-export const PdfRenderProps = async(data: Props) => {
- const Url = `http://localhost:3000/api/pdf?url=http://127.0.0.1:1337${data.fileUrl}`;
+export const PdfRenderProps = async (data: Props) => {
 
- console.log("🚀 ~ PdfRenderProps ~ Url:", Url)
+    const Url = `/api/pdf/${data.id}`;
+
+    console.log("🚀 ~ PdfRenderProps ~ Url:", Url);
     return (
-        <Box w={"100%"} h={"100%"} overflowY={"auto"}>
-            <Image src={`${Url}`} />
+        <Box
+            w={"95%"}
+            h={"100%"}
+            border={"6px solid #00713D"}
+            borderRadius={"10px"}
+        >
+            <Box w={"100%"} h={"100%"} overflowY={"auto"}>
+                {!data.id && <p>Arquivo não encontrado</p>}
+                {!!data.id && <iframe src={Url} width="100%" height="100%"></iframe>}
+            </Box>
         </Box>
     );
 };

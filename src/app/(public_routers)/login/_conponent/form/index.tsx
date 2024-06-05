@@ -40,7 +40,7 @@ export const LoginAuth = (LoginProps: { reload: any }) => {
       });
       setLooad(false);
     } else {
-      router.replace('/');
+    //   router.replace('/');
     }
   };
 

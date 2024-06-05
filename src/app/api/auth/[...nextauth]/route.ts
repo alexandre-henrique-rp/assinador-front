@@ -30,6 +30,7 @@ const nextAuthOptions: NextAuthOptions = {
 
           const retorno = await res.data;
           const { jwt, user } = retorno;
+          console.log("🚀 ~ authorize ~ user:", user)
 
           const {
             blocked,
@@ -66,11 +67,11 @@ const nextAuthOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/login",
-    signOut: '/auth/signout',
-    error: '/auth/error', // Error code passed in query string as ?error=
-    verifyRequest: '/auth/verify-request', // (used for check email message)
-    newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
+    // signIn: "/login",
+    // signOut: '/auth/signout',
+    // error: '/auth/error', // Error code passed in query string as ?error=
+    // verifyRequest: '/auth/verify-request', // (used for check email message)
+    // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
   },
   jwt: {
     secret: process.env.JWT_SIGNING_PRIVATE_KEY,

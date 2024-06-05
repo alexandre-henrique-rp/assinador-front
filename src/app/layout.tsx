@@ -19,18 +19,16 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     return (
         <html
             lang="pt-br"
-            style={{ fontSize: "0.8rem", width: "100vw", height: "100vh" }}
+            style={{
+                fontSize: "0.8rem",
+                width: "100vw inportant",
+                height: "100vh inportant",
+            }}
         >
             <NextAuSessionProvider>
-                <PublicPageProvider>
-                    <Box 
-                    // fontSize={{base: '', sm: '', md: "", xl: ''}}
-                    >
-                        <body className={fonts.rubik.variable}>
-                            <Providers>{children}</Providers>
-                        </body>
-                    </Box>
-                </PublicPageProvider>
+                <body className={fonts.rubik.variable}>
+                    <Providers>{children}</Providers>
+                </body>
             </NextAuSessionProvider>
         </html>
     );
