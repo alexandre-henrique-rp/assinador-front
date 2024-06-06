@@ -28,26 +28,12 @@ import { Logologin } from "../logo ";
 import { IoDocumentLockOutline } from "react-icons/io5";
 import { MdVerified } from "react-icons/md";
 import { TbHelpTriangle } from "react-icons/tb";
-import { signOut, useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { signOut, } from "next-auth/react";
 
-export const Header = () => {
+export const Header = (Props: {Icon: string, Title: string}) => {
     const bg = "#CDCDCD";
     const mobileNav = useDisclosure();
-    const { data: session }: any = useSession();
-    const id = session?.user?.id;
-    const [user, setUser] = useState<any>(null);
-
-    useEffect(() => {
-        (async () => {
-            const res = await fetch(`/api/User/get/${id}`);
-            const data = await res.json();
-            setUser(data);
-        })();
-    }, [id, user?.avatar?.url]);
-
-    const AvatarIcon = user?.avatar?.url && `http://127.0.0.1:1337${user?.avatar?.url}`;
-    const nomeAvatar = user?.nome && user?.nome;
+  
 
     return (
         <>
@@ -239,8 +225,8 @@ export const Header = () => {
                             >
                                 <Avatar
                                     size={"md"}
-                                    name={nomeAvatar}
-                                    src={AvatarIcon}
+                                    name={Props.Title}
+                                    src={Props.Icon}
                                 />
                             </MenuButton>
                             <MenuList>

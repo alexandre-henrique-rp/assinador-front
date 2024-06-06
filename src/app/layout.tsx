@@ -3,8 +3,7 @@ import { fonts } from "./fonts";
 import { Providers } from "./providers";
 import { ReactNode } from "react";
 import NextAuSessionProvider from "./components/providers/session_provaiders";
-import PublicPageProvider from "./components/providers/publicPage";
-import { Box } from "@chakra-ui/react";
+
 
 export const metadata: Metadata = {
     title: "Assinador Front",

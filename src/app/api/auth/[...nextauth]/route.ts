@@ -30,7 +30,6 @@ const nextAuthOptions: NextAuthOptions = {
 
           const retorno = await res.data;
           const { jwt, user } = retorno;
-          console.log("🚀 ~ authorize ~ user:", user)
 
           const {
             blocked,

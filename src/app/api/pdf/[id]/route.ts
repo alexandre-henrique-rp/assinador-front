@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request, { params }: { params: { id: string } }) {
     try {
         const ID: string = params.id;
-        console.log("🚀 ~ GET ~ ID:", ID)
 
         const requestUUid = await fetch(
             `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/docs?filters[uuid][$eq]=${ID}&populate=%2A`,
@@ -20,9 +19,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
         const retornoUuid = await requestUUid.json();
         const [dados] = await retornoUuid.data
-        const docId = dados.attributes.doc.data.id
-        console.log("🚀 ~ GET ~ retornoUuid:", docId)
-        
+        const docId = dados.attributes.doc.data.id;        
 
         // Faz a requisição para obter os dados do arquivo pelo ID
         const ConsultaId = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/upload/files/${docId}`, {
@@ -36,11 +33,9 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
         // Converte a resposta em JSON
         const DadosId = await ConsultaId.json();
-        console.log("🚀 ~ GET ~ DadosId:", DadosId);
 
         // Constroi a URL para download do PDF
         const UrlDownload = `${process.env.NEXT_IMAGE_STRAPI_API_URL}${DadosId.url}`;
-        console.log("🚀 ~ GET ~ UrlDownload:", UrlDownload);
 
         // Faz a requisição para baixar o arquivo PDF
         const response = await axios({
