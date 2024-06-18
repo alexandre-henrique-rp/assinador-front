@@ -9,7 +9,7 @@ export default function FooterComponent() {
   return (
     <Flex
       w={"100%"}
-      h={"60px"}
+      h={"100%"}
       bg={bg}
       justifyContent={"space-evenly"}
       alignItems={"center"}

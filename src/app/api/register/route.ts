@@ -24,7 +24,6 @@ export async function POST(request: Request) {
             role: 1,
             uuid: uuid()
         }
-        console.log("dados", dados)
         
         const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/auth/local/register`, {
             method: 'POST',
@@ -34,6 +33,8 @@ export async function POST(request: Request) {
             body: JSON.stringify(dados),
         });
         const retorno = await response.json();
+  
+        if (retorno.error) throw retorno.error;
 
         return NextResponse.json({ message: 'Registro criado com sucesso', data: { response: retorno.data, } }, { status: 200 });
     } catch (error) {

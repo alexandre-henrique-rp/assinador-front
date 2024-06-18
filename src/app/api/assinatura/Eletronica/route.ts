@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { RequestUuid } from "./functions/request_uuid";
 import axios from "axios";
+import { RequestPdfBuffer } from "./functions/request_PDF_buffer";
+import { ProssPDF } from "./functions/Pross_PDF";
+import PdfPrinter from "pdfmake";
+import { TDocumentDefinitions } from "pdfmake/interfaces";
+
 
 
 
@@ -20,20 +25,14 @@ export async function POST(request: Request) {
         // Constroi a URL para download do PDF
         const UrlDownload = `${process.env.NEXT_IMAGE_STRAPI_API_URL}${DocUrl}`;
 
-        // Faz a requisição para baixar o arquivo PDF
-        const response = await axios({
-            method: 'GET',
-            url: UrlDownload,
-            headers: {
-                Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
-            },
-            responseType: 'arraybuffer'
-        });
-
+        console.log("🚀 ~ POST ~ UrlDownload:", UrlDownload)
         // Cria um Buffer a partir dos dados binários do PDF
-        const pdfBuffer = Buffer.from(response.data);
-       
+        // const pdfBuffer = await RequestPdfBuffer(UrlDownload);
 
+        // const Pdf =  ProssPDF();
+        // console.log("🚀 ~ POST ~ Pdf:", Pdf)
+
+        
 
         return NextResponse.json({ message: "Assinatura com certificado Digital" }, { status: 200 });
     } catch (error: any) {
@@ -41,3 +40,5 @@ export async function POST(request: Request) {
         return NextResponse.json(error.message, { status: error.status });
     }
 }
+
+

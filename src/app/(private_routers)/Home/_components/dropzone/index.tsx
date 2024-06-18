@@ -38,7 +38,7 @@ const Dropzone = () => {
                 });
             } else if (newFileTypes === "application/pdf") {
                 toast({
-                    title: `Arquivo "${newFileNames}" esta prointo para ser enviado`,
+                    title: `Arquivo "${newFileNames}" esta pronto para ser enviado`,
                     description: `se o arquivo estiver correto, clique no botão enviar`,
                     status: "info",
                     duration: 10000,

@@ -5,52 +5,51 @@ import FooterComponent from "../components/Footer";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-
 export default function Privaterouter({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-     const { data: session }: any = useSession();
-     const id = session?.user?.id;
-     const [user, setUser] = useState<any>(null);
+    const { data: session }: any = useSession();
+    const id = session?.user?.id;
+    const [user, setUser] = useState<any>(null);
 
-     useEffect(() => {
-         (async () => {
-             const res = await fetch(`/api/User/get/${id}`);
-             const data = await res.json();
-             setUser(data);
-         })();
-     }, [id]);
+    useEffect(() => {
+        (async () => {
+            const res = await fetch(`/api/User/get/${id}`);
+            const data = await res.json();
+            setUser(data);
+        })();
+    }, [id]);
 
-     const AvatarIcon =
-         user?.avatar?.url && `http://127.0.0.1:1337${user?.avatar?.url}`;
-     const nomeAvatar = user?.nome && user?.nome;
-  return (
-      <>
-          <Flex
-              flexDir={"column"}
-              justifyContent={"space-between"}
-              h={"100vh"}
-              w={"100vw"}
-              bg="#F8F8F8"
-              overflow={"auto"}
-          >
-              {/* header */}
-              <Box h={"10%"} w={"100%"}>
-                  <Header Icon={AvatarIcon} Title={nomeAvatar} />
-              </Box>
+    const AvatarIcon = user?.avatar && user?.avatar;
+    const nomeAvatar = user?.nome && user?.nome;
 
-              <Box h={"83%"} w={"100%"} p={8}>
-                  {children}
-              </Box>
+    return (
+        <>
+            <Flex
+                flexDir={"column"}
+                justifyContent={"space-between"}
+                h={"100vh"}
+                w={"100vw"}
+                bg="#F8F8F8"
+                overflow={"auto"}
+            >
+                {/* header */}
+                <Box h={"10%"} w={"100%"}>
+                    <Header Icon={AvatarIcon} Title={nomeAvatar} />
+                </Box>
 
-              {/* rodapé */}
+                <Box h={"83%"} w={"100%"} p={6}>
+                    {children}
+                </Box>
 
-              <Box h={"7%"} w={"100%"}>
-                  <FooterComponent />
-              </Box>
-          </Flex>
-      </>
-  );
+                {/* rodapé */}
+
+                <Box h={"7%"} w={"100%"}>
+                    <FooterComponent />
+                </Box>
+            </Flex>
+        </>
+    );
 }

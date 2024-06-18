@@ -19,16 +19,21 @@ const nextAuthOptions: NextAuthOptions = {
             identifier: credentials.email,
             password: credentials.password,
           };
+          console.log("🚀 ~ authorize ~ dados:", dados)
           const res = await axios({
             url: `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/auth/local`,
             method: "POST", 
             data: dados,
             headers: {
               "Content-Type": "application/json",
-            }
+            },
+            timeout: 5000
           });
 
+          console.log("🚀 ~ authorize ~ res:", res)
+
           const retorno = await res.data;
+          console.log("🚀 ~ authorize ~ retorno:", retorno)
           const { jwt, user } = retorno;
 
           const {
@@ -66,8 +71,8 @@ const nextAuthOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    // signIn: "/login",
-    // signOut: '/auth/signout',
+    signIn: "/login",
+    signOut: '/auth/signout',
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // (used for check email message)
     // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
@@ -112,6 +117,7 @@ const nextAuthOptions: NextAuthOptions = {
     },
     session: async ({ session, token }: { session: any; token: JWT }): Promise<any | null> => {
       if (
+          
         !token?.jwt ||
         !token?.id ||
         !token?.name ||

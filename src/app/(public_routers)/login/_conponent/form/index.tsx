@@ -31,6 +31,7 @@ export const LoginAuth = (LoginProps: { reload: any }) => {
       redirect: false,
     });
 
+    console.log("🚀 ~ consthandleSubmit:FormEventHandler<HTMLFormElement>= ~ res:", res)
     if (res.status !== 200) {
       toast({
         title: 'Usuário ou Senha Incorreto',
@@ -40,7 +41,7 @@ export const LoginAuth = (LoginProps: { reload: any }) => {
       });
       setLooad(false);
     } else {
-    //   router.replace('/');
+      router.replace('/');
     }
   };
 

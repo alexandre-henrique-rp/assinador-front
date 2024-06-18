@@ -22,7 +22,6 @@ export default async function HomePage() {
     const session = await getServerSession(nextAuthOptions);
     const user: any = session?.user;
 
-
     const token: any = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
 
     const url: any = process.env.NEXT_PUBLIC_STRAPI_API_URL;
@@ -36,14 +35,6 @@ export default async function HomePage() {
         cache: "no-store",
     });
     const retorno = await response.json();
-    console.log("🚀 ~ HomePage ~ retorno:", retorno)
-
-      const handleFilesDropped = (files: any) => {
-          for (const file of files) {
-              console.log("Arquivo:", file.name);
-              // Aqui você pode fazer o que quiser com os arquivos, por exemplo, enviá-los para um servidor
-          }
-      };
 
     return (
         // [pendentes, analise, finalizados]
