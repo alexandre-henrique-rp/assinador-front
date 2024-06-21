@@ -34,7 +34,7 @@ export default function EnviarDocumentosPage({
                 >
                     <AddSubProps Data={(data: any) => setDados(data)} />
                     <Box w={"100%"}>
-                        <AssinarProps />
+                        <AssinarProps docId={uuid} />
                         <Button
                             variant="outline"
                             size={"lg"}

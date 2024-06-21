@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 const Dropzone = () => {
     const [Files, setFiles] = useState<File[]>([]);
     const toast = useToast();
-    const { refresh } = useRouter();
+    const { push } = useRouter();
 
     const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
@@ -81,7 +81,11 @@ const Dropzone = () => {
                     isClosable: true,
                 });
                 setFiles([]); // Limpar o estado dos arquivos
-                refresh();
+                // espera 3 segundos para atualizar a página
+                setTimeout(() => {
+                    push("/");
+                }, 3000);
+               
             } else {
                 console.error("Falha ao enviar arquivos:", response.statusText);
                 throw { message: "Falha ao enviar arquivos" };

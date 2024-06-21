@@ -13,9 +13,11 @@ export async function POST(request: Request) {
 
     try {
         const data = await request.json();
+        console.log("🚀 ~ POST ~ data:", data)
         if (!data) throw { message: "Dados não informados, não foi possivel asinar eletronicamente" };
 
         const UUID = data.uuid;
+        const UserId = data.user;
         console.log("🚀 ~ POST ~ UUID:", UUID)
 
         // Faz a requisição para obter os dados do arquivo pelo uuid
@@ -24,13 +26,8 @@ export async function POST(request: Request) {
 
         // Constroi a URL para download do PDF
         const UrlDownload = `${process.env.NEXT_IMAGE_STRAPI_API_URL}${DocUrl}`;
-
+        
         console.log("🚀 ~ POST ~ UrlDownload:", UrlDownload)
-        // Cria um Buffer a partir dos dados binários do PDF
-        // const pdfBuffer = await RequestPdfBuffer(UrlDownload);
-
-        // const Pdf =  ProssPDF();
-        // console.log("🚀 ~ POST ~ Pdf:", Pdf)
 
         
 

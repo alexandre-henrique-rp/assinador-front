@@ -11,6 +11,7 @@ export const RequestUuid = async (uuid: string) => {
                 cache: "no-store",
             }
         );
+    
         const retornoUuid = await requestUUid.json();
         const [dados] = await retornoUuid.data
         return dados

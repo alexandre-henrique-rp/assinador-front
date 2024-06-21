@@ -19,7 +19,23 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
         const retornoUuid = await requestUUid.json();
         const [dados] = await retornoUuid.data
-        const docId = dados.attributes.doc.data.id;        
+        const Assinaturas = dados.attributes.assinaturas;
+        console.log("🚀 ~ GET ~ Assinaturas:", Assinaturas)
+        const docId = dados.attributes.doc.data.id; 
+        const filename = dados.attributes.name;
+        
+        const RequestAss = await fetch(`${process.env.NEXT_MANIFEST_URL}/manifesto`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                assinaturas: Assinaturas,
+                urlConsulta: `${process.env.NEXT_PUBLIC_LINK}/singi/check/doc/${ID}`,
+                filename,
+                uuid: ID
+            }),
+        });
 
         // Faz a requisição para obter os dados do arquivo pelo ID
         const ConsultaId = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/upload/files/${docId}`, {
