@@ -8,7 +8,7 @@ export default function PendenteComponent() {
         <Flex
             shadow={"2xl"}
             borderRadius={"15px"}
-            w={"250px"}
+            w={"33%"}
             bg={"white"}
             p={"30px"}
             justifyContent={"center"}
@@ -16,7 +16,6 @@ export default function PendenteComponent() {
         >
             <Box w={"100%"}>
                 <Text
-                    w={"50%%"}
                     fontSize={"20px"}
                     textAlign={"center"}
                     color="#00713D"
@@ -27,7 +26,6 @@ export default function PendenteComponent() {
                 </Text>
 
                 <Text
-                    w={"50%%"}
                     fontSize={"40px"}
                     textAlign={"center"}
                     color="#00713D"

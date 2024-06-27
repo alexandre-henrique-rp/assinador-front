@@ -1,24 +1,35 @@
 "use client";
 import { Box, Flex, Icon, Link, Text, Tooltip } from "@chakra-ui/react";
+import axios from "axios";
 import { useSession } from "next-auth/react";
-import { FormEventHandler, MouseEventHandler } from "react";
+import { FormEventHandler, MouseEventHandler, useEffect, useState } from "react";
 
-export const AssinarProps = (props: {
-    docId: string;
-}) => {
-   const { data: session }: any = useSession();
+export const AssinarProps = (props: { docId: string }) => {
+    const { data: session }: any = useSession();
+    const [ip, setIp] = useState('');
 
-   console.log(session.user);
-
-
-
-    const HandlerAssEletronicamente: MouseEventHandler<HTMLAnchorElement> | undefined = async(e) => {
+    const fetchIP = async () => {
+        try {
+          const response = await axios.get('https://api.ipify.org?format=json');
+          console.log(response.data.ip);
+          setIp(response.data.ip);
+        } catch (error) {
+          console.error('Erro ao buscar o IP:', error);
+        }
+      };
+    
+    const HandlerAssEletronicamente:
+        | MouseEventHandler<HTMLAnchorElement>
+        | undefined = async (e) => {
         e.preventDefault();
-        try{
-            const DadosConsulta: { uuid: string; user: number } = {
-                uuid: props.docId,
-                user: session.user.id
-            }
+        try {
+            fetchIP();
+            const DadosConsulta: { docId: string; userId: number; user: any, ip: string } = {
+                docId: props.docId,
+                userId: session.user.id,
+                user: session.user,
+                ip: ip
+            };
 
             const response = await fetch("/api/assinatura/Eletronica", {
                 method: "POST",
@@ -27,12 +38,12 @@ export const AssinarProps = (props: {
                     "Content-Type": "application/json",
                 },
             });
-
-        } catch(error: any) {
-            console.error(error)
-            
+        } catch (error: any) {
+            console.error(error);
         }
-    }
+    };
+
+    console.log("session", session);
 
     return (
         <>

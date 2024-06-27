@@ -19,7 +19,6 @@ const nextAuthOptions: NextAuthOptions = {
             identifier: credentials.email,
             password: credentials.password,
           };
-          console.log("🚀 ~ authorize ~ dados:", dados)
           const res = await axios({
             url: `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/auth/local`,
             method: "POST", 
@@ -30,10 +29,7 @@ const nextAuthOptions: NextAuthOptions = {
             timeout: 5000
           });
 
-          console.log("🚀 ~ authorize ~ res:", res)
-
           const retorno = await res.data;
-          console.log("🚀 ~ authorize ~ retorno:", retorno)
           const { jwt, user } = retorno;
 
           const {
@@ -43,7 +39,8 @@ const nextAuthOptions: NextAuthOptions = {
             id,
             whatsapp,
             uuid,
-            email
+            email,
+            avatar
           } = await user;
 
           const response = {
@@ -54,7 +51,8 @@ const nextAuthOptions: NextAuthOptions = {
             email: email,
             blocked: blocked,
             whatsapp: whatsapp,
-            uuid: uuid
+            uuid: uuid,
+            avatar: avatar
           };
 
           if (!jwt || !id || !username || !email) {
@@ -105,6 +103,7 @@ const nextAuthOptions: NextAuthOptions = {
         token.blocked = user.blocked;
         token.whatsapp = user.whatsapp;
         token.uuid = user.uuid;
+        token.avatar = user.avatar;
 
         token.expiration = actualDateInSeconds + tokenExpirationInSeconds;
       } else {
@@ -122,7 +121,7 @@ const nextAuthOptions: NextAuthOptions = {
         !token?.id ||
         !token?.name ||
         !token?.email ||
-        !token?.expiration 
+        !token?.expiration
       ) {
         return null;
       }
@@ -134,7 +133,8 @@ const nextAuthOptions: NextAuthOptions = {
         blocked: token.blocked as boolean,
         username: token.username as string,
         whatsapp: token.whatsapp as string,
-        uuid: token.uuid as string
+        uuid: token.uuid as string,
+        avatar: token.avatar as string
       };
 
       session.token = token.jwt as string;

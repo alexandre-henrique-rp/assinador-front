@@ -37,7 +37,7 @@ export default function EventosComponent(Dados: Props) {
         <Flex
             shadow={"2xl"}
             borderRadius={"15px"}
-            w={{ base: "100%", md: "97%" }}
+            w={"100%"}
             bg={"white"}
             p={"30px"}
             flexDir={"column"}
@@ -60,7 +60,7 @@ export default function EventosComponent(Dados: Props) {
             {/* LOCAL AONDE VAI FICAR OS ARQUIVOS DO CLIENTE */}
             <Flex
                 w={"100%"}
-                h={"30vh"}
+                h={{ base: "15vh", lg: "30vh" }}
                 flexDir={"column"}
                 py={"10px"}
                 pe={"15px"}

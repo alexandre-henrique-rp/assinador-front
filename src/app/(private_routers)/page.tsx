@@ -1,12 +1,14 @@
+"use client";
+
 import { Box, Flex, Icon, Stack } from "@chakra-ui/react";
 import PendenteComponent from "./Home/_components/pendenteComponent";
 import AnaliseComponent from "./Home/_components/AnaliseComponent/Index";
 import FinalizadosComponents from "./Home/_components/finalizadosComponent";
-import { nextAuthOptions } from "../api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
 import EventosComponent from "./Home/_components/EventosComponent";
 
 import Dropzone from "./Home/_components/dropzone";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 interface UserProps {
     id: number | null | undefined;
@@ -18,10 +20,7 @@ interface UserProps {
     uuid: string | null | undefined;
 }
 
-export default async function HomePage() {
-    const session = await getServerSession(nextAuthOptions);
-    const user: any = session?.user;
-
+async function fetcher(user: UserProps) {
     const token: any = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
 
     const url: any = process.env.NEXT_PUBLIC_STRAPI_API_URL;
@@ -34,28 +33,58 @@ export default async function HomePage() {
         },
         cache: "no-store",
     });
-    const retorno = await response.json();
+    return await response.json();
+}
+
+export default function HomePage() {
+    const {data: session} = useSession();
+    const user: any = session?.user;
+
+    const [Data, setData] = useState<any>();
+
+    useEffect(() => {
+        (async () => {
+            const Response = await fetcher(user);
+            setData(Response);
+        })();
+    }, [user]);
+   
+    
+
+    const reloadProps = (e: any) => {
+        const valor = e;
+        if (valor == true) {
+            (async () => {
+                const Response = await fetcher(user);
+                setData(Response);
+            })();
+        }
+    };
 
     return (
         // [pendentes, analise, finalizados]
         <Flex
             w={"100%"}
             h={"100%"}
-            justifyContent={"center"}
+            justifyContent={{ lg: "center" }}
             alignItems={"center"}
+            p={"20px"}
+            flexDir={{ base: "column", lg: "row" }}
+            gap={{ base: "20px", lg: "0px" }}
         >
             <Flex
                 flexDir={"column"}
-                justifyContent={"space-between"}
+                justifyContent={{ lg: "space-between" }}
                 h={"100%"}
-                w={"50%"}
-                p={"50px"}
+                w={{ base: "100%", lg: "50%" }}
+                p={{ lg: "50px" }}
+                gap={{ base: "20px", lg: "0px" }}
             >
                 <Flex
                     w={"100%"}
-                    h={"20%"}
+                    h={{ base: "43%", lg: "20%" }}
                     alignItems={"center"}
-                    justifyContent={"space-evenly"}
+                    // justifyContent={"space-evenly"}
                     gap={"15px"}
                 >
                     <PendenteComponent />
@@ -64,17 +93,18 @@ export default async function HomePage() {
                 </Flex>
 
                 <Flex
-                    h={"70%"}
+                    h={{ base: "50%", lg: "70%" }}
                     alignItems={"center"}
                     justifyContent={"center"}
                     w={"100%"}
                 >
-                    <EventosComponent docs={retorno.docs} />
+                    <EventosComponent docs={Data?.docs} />
                 </Flex>
             </Flex>
             <Flex
-                h={"70%"}
-                w={"40%"}
+                h={{ base: "100%", lg: "70%" }}
+                m={6}
+                w={{ base: "100%", lg: "40%" }}
                 borderColor={"#00713D"}
                 borderWidth={"2px"}
                 borderStyle="dashed"
@@ -83,7 +113,7 @@ export default async function HomePage() {
                 flexDir={"column"}
                 alignItems={"center"}
             >
-                <Dropzone />
+                <Dropzone reload={reloadProps} />
             </Flex>
         </Flex>
     );

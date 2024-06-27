@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 
-const Dropzone = () => {
+const Dropzone = (props: {reload: any;}) => {
     const [Files, setFiles] = useState<File[]>([]);
     const toast = useToast();
     const { push } = useRouter();
@@ -81,10 +81,8 @@ const Dropzone = () => {
                     isClosable: true,
                 });
                 setFiles([]); // Limpar o estado dos arquivos
+                HandleReload();
                 // espera 3 segundos para atualizar a página
-                setTimeout(() => {
-                    push("/");
-                }, 3000);
                
             } else {
                 console.error("Falha ao enviar arquivos:", response.statusText);
@@ -100,6 +98,10 @@ const Dropzone = () => {
             });
         }
     };
+
+    function HandleReload () {
+        props.reload(1);
+    }
 
     return (
         <>

@@ -30,17 +30,22 @@ export default function Privaterouter({
             <Flex
                 flexDir={"column"}
                 justifyContent={"space-between"}
-                h={"100vh"}
+                h={"100dvh"}
                 w={"100vw"}
                 bg="#F8F8F8"
                 overflow={"auto"}
             >
                 {/* header */}
-                <Box h={"10%"} w={"100%"}>
+                <Box h={{ base: "13%", lg: "10%" }} w={"100%"}>
                     <Header Icon={AvatarIcon} Title={nomeAvatar} />
                 </Box>
 
-                <Box h={"83%"} w={"100%"} p={6}>
+                <Box
+                    h={"83%"}
+                    w={"100%"}
+                    p={6}
+                    overflowY={{ base: "auto", lg: "hidden" }}
+                >
                     {children}
                 </Box>
 
