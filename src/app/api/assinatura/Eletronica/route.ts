@@ -16,123 +16,13 @@ export async function POST(request: Request) {
         const consultarDoc = await ConsultarDoc(data.docId, data.userId);
 
         const userConsuta = consultarDoc.attributes.user.data;
+        console.log(consultarDoc.attributes.assinatura);
+        console.log(consultarDoc.attributes.user);
+        console.log(consultarDoc.attributes.doc);
         console.log(consultarDoc);
 
-        let DataAssinatura;
 
-        if (consultarDoc.pertenceDoc) {
-            if (!consultarDoc.attributes.assinatura) {
-                DataAssinatura = {
-                    assinantes: [
-                        {
-                            dataAss: new Date().toISOString(),
-                            nome: userConsuta.attributes.nome,
-                            cpf: userConsuta.attributes.cpf,
-                            status: "Assinado eletronicamente, mediante senha de rede, pessoal e intransferível",
-                            IP: data.ip,
-                            uuid: data.user.uuid,
-                            id: data.user.id,
-                        },
-                    ],
-                    testemunhas: [
-                        ...consultarDoc.attributes.assinatura.testemunhas,
-                    ],
-                };
-            } else{
-                const UserFilter =
-                    consultarDoc.attributes.assinatura?.assinantes.filter(
-                        (user: any) => user.id === data.user.id
-                    );
-
-                if (UserFilter.length == 0) {
-                    DataAssinatura = {
-                        assinantes: [
-                            {
-                                dataAss: new Date().toISOString(),
-                                nome: userConsuta.attributes.nome,
-                                cpf: userConsuta.attributes.cpf,
-                                status: "Assinado eletronicamente, mediante senha de rede, pessoal e intransferível",
-                                IP: data.ip,
-                                uuid: data.user.uuid,
-                                id: data.user.id,
-                            },
-                            ...consultarDoc.attributes.assinatura.assinantes,
-                        ],
-                        testemunhas: [
-                            ...consultarDoc.attributes.assinatura.testemunhas,
-                        ],
-                    };
-                } 
-
-            }
-        } else {
-            if (data.tag === "Testemunha") {
-                if (!consultarDoc.attributes.assinatura) {
-                    DataAssinatura = {
-                        assinantes: [],
-                        testemunhas: [
-                            {
-                                dataAss: new Date().toISOString(),
-                                nome: userConsuta.attributes.nome,
-                                cpf: userConsuta.attributes.cpf,
-                                status: "Assinado eletronicamente como testemunha",
-                                IP: data.ip,
-                                uuid: data.user.uuid,
-                                id: data.user.id,
-                            },
-                            ...consultarDoc.attributes.assinatura.testemunhas,
-                        ],
-                }
-            } else{
-                if (!consultarDoc.attributes.assinatura) {
-                    DataAssinatura = {
-                        assinantes: [
-                            {
-                                dataAss: new Date().toISOString(),
-                                nome: userConsuta.attributes.nome,
-                                cpf: userConsuta.attributes.cpf,
-                                status: "Assinado eletronicamente, mediante senha de rede, pessoal e intransferível",
-                                IP: data.ip,
-                                uuid: data.user.uuid,
-                                id: data.user.id,
-                            },
-                        ],
-                        testemunhas: [
-                            ...consultarDoc.attributes.assinatura.testemunhas,
-                        ],
-                    };
-                } else{
-                    const UserFilter =
-                        consultarDoc.attributes.assinatura?.assinantes.filter(
-                            (user: any) => user.id === data.user.id
-                        );
-    
-                    if (UserFilter.length == 0) {
-                        DataAssinatura = {
-                            assinantes: [
-                                {
-                                    dataAss: new Date().toISOString(),
-                                    nome: userConsuta.attributes.nome,
-                                    cpf: userConsuta.attributes.cpf,
-                                    status: "Assinado eletronicamente, mediante senha de rede, pessoal e intransferível",
-                                    IP: data.ip,
-                                    uuid: data.user.uuid,
-                                    id: data.user.id,
-                                },
-                                ...consultarDoc.attributes.assinatura.assinantes,
-                            ],
-                            testemunhas: [
-                                ...consultarDoc.attributes.assinatura.testemunhas,
-                            ],
-                        };
-                    } 
-    
-                }
-            }
-
-        }
-
-
+        
         return NextResponse.json(
             { message: "Assinatura com certificado Digital" },
             { status: 200 }

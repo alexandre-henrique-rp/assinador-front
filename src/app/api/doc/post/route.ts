@@ -31,7 +31,12 @@ export async function POST(request: Request) {
                     doc: item.id,
                     user: User?.user?.id,
                     status: false,
-                    uuid: uuid()
+                    uuid: uuid(),
+                    assinatura: {
+                        assinantes: [],
+                        testemunhas: []
+                      }
+                      
                 }
             }
 

@@ -4,31 +4,31 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { FormEventHandler, MouseEventHandler, useEffect, useState } from "react";
 
+async function fetchIP() {
+    try {
+      const response = await axios.get('https://api.ipify.org?format=json');
+      console.log(response.data.ip);
+      return response.data.ip;
+    } catch (error) {
+      console.error('Erro ao buscar o IP:', error);
+    }
+  };
+
 export const AssinarProps = (props: { docId: string }) => {
     const { data: session }: any = useSession();
-    const [ip, setIp] = useState('');
-
-    const fetchIP = async () => {
-        try {
-          const response = await axios.get('https://api.ipify.org?format=json');
-          console.log(response.data.ip);
-          setIp(response.data.ip);
-        } catch (error) {
-          console.error('Erro ao buscar o IP:', error);
-        }
-      };
+    
     
     const HandlerAssEletronicamente:
         | MouseEventHandler<HTMLAnchorElement>
         | undefined = async (e) => {
         e.preventDefault();
         try {
-            fetchIP();
+           
             const DadosConsulta: { docId: string; userId: number; user: any, ip: string } = {
                 docId: props.docId,
                 userId: session.user.id,
                 user: session.user,
-                ip: ip
+                ip: await fetchIP()
             };
 
             const response = await fetch("/api/assinatura/Eletronica", {
