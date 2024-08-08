@@ -55,10 +55,10 @@ export const AssinarProps = (props: { docId: string }) => {
                         fontSize={"lg"}
                         onClick={HandlerAssEletronicamente}
                     >
-                        Assinar Eletrônicamente
+                        Assinar Eletronicamente
                     </Link>
                     <Tooltip
-                        label="Assinatura com usuario e ID especial"
+                        label="Assinatura com usuário e ID especial"
                         aria-label="A tooltip"
                     >
                         <Icon color="blue.600" cursor="pointer" boxSize={5} />

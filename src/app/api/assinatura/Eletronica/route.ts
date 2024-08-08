@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import ConsultarDoc from "./functions/consultarDoc";
-import { Tag } from "@chakra-ui/react";
 
 export async function POST(request: Request) {
     try {
@@ -8,14 +7,13 @@ export async function POST(request: Request) {
         if (!data)
             throw {
                 message:
-                    "Dados não informados, não foi possivel asinal com certificado",
+                    "Dados não informados, não foi possível asinal com certificado",
             };
         console.log(data);
 
-        // consultar documento é do proprietario
+        // consultar documento é do proprietário
         const consultarDoc = await ConsultarDoc(data.docId, data.userId);
 
-        const userConsuta = consultarDoc.attributes.user.data;
         console.log(consultarDoc.attributes.assinatura);
         console.log(consultarDoc.attributes.user);
         console.log(consultarDoc.attributes.doc);
