@@ -17,7 +17,6 @@ export async function GET(request: Request, { params }: { params: { id: string }
         });
 
         const resposta = await PutRequest.json();
-
         if (resposta.error) throw resposta.error;
 
         return NextResponse.json( resposta, { status: 200 });

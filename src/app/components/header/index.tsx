@@ -28,12 +28,13 @@ import { Logologin } from "../logo ";
 import { IoDocumentLockOutline } from "react-icons/io5";
 import { MdVerified } from "react-icons/md";
 import { TbHelpTriangle } from "react-icons/tb";
-import { signOut, } from "next-auth/react";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-export const Header = (Props: {Icon: string, Title: string}) => {
+export const Header = (Props: { Icon: string; Title: string }) => {
     const bg = "#CDCDCD";
     const mobileNav = useDisclosure();
-  
+    const router = useRouter();
 
     return (
         <>
@@ -232,7 +233,12 @@ export const Header = (Props: {Icon: string, Title: string}) => {
                             <MenuList>
                                 <MenuItem>Editar Perfil</MenuItem>
                                 <MenuDivider />
-                                <MenuItem onClick={() => signOut()}>
+                                <MenuItem
+                                    onClick={() => {
+                                        router.push("/login");
+                                        signOut({ redirect: false });
+                                    }}
+                                >
                                     Sair
                                 </MenuItem>
                             </MenuList>

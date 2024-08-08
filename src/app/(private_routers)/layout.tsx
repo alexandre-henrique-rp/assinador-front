@@ -15,11 +15,13 @@ export default function Privaterouter({
     const [user, setUser] = useState<any>(null);
 
     useEffect(() => {
-        (async () => {
-            const res = await fetch(`/api/User/get/${id}`);
-            const data = await res.json();
-            setUser(data);
-        })();
+        if (id && !user){
+            (async () => {
+                const res = await fetch(`/api/User/get/${id}`);
+                const data = await res.json();
+                setUser(data);
+            })();
+        }
     }, [id]);
 
     const AvatarIcon = user?.avatar && user?.avatar;
