@@ -1,32 +1,36 @@
-"use client";
 import { Box, Flex } from "@chakra-ui/react";
 import { Header } from "../components/header";
 import FooterComponent from "../components/Footer";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { getServerSession } from "next-auth";
+import { auth } from "@/lib/auth_config";
 
-export default function Privaterouter({
+export default async function Privaterouter({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const { data: session }: any = useSession();
+    
+    // const { data: session }: any = useSession();
+    const session = await getServerSession(auth);
     const id = session?.user?.id;
-    const [user, setUser] = useState<any>(null);
 
-    useEffect(() => {
-        if (id && !user){
-            (async () => {
-                const res = await fetch(`/api/User/get/${id}`);
-                const data = await res.json();
-                setUser(data);
-            })();
-        }
-    }, [id]);
+    const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/users/${id}?populate=%2A`;
+    const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
+
+    const req = await fetch(url, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        cache: "no-store",
+    });
+    const user = await req.json();
 
     const AvatarIcon = user?.avatar && user?.avatar;
     const nomeAvatar = user?.nome && user?.nome;
 
+    
     return (
         <>
             <Flex

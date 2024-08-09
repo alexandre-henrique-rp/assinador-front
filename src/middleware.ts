@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkIsPublicRoute } from "./functions/check-is public-route";
 
-
 export default function middleware(req: NextRequest) {
 
     const session = req.cookies.get('next-auth.session-token')?.value;

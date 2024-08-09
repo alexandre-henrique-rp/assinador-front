@@ -1,5 +1,4 @@
 "use client";
-
 import {
     Avatar,
     Box,
@@ -34,19 +33,13 @@ import { useRouter } from "next/navigation";
 export const Header = (Props: { Icon: string; Title: string }) => {
     const bg = "#CDCDCD";
     const mobileNav = useDisclosure();
-    const router = useRouter();
 
     return (
         <>
             <chakra.header
                 bg={bg}
                 w="full"
-                // px={{
-                //   base: 2,
-                //   sm: 4,
-                // }}
                 py={4}
-                // shadow="md"
             >
                 <Flex
                     w={"full"}
@@ -235,8 +228,8 @@ export const Header = (Props: { Icon: string; Title: string }) => {
                                 <MenuDivider />
                                 <MenuItem
                                     onClick={() => {
-                                        router.push("/login");
-                                        signOut({ redirect: false });
+                                        signOut();
+                                        // router.push("/login");
                                     }}
                                 >
                                     Sair
