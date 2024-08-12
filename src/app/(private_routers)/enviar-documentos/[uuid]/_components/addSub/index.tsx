@@ -1,17 +1,23 @@
 "use client";
-import { EmailIcon, PhoneIcon } from "@chakra-ui/icons";
+import { CheckCircleIcon, EmailIcon, PhoneIcon } from "@chakra-ui/icons";
 import {
+    Alert,
+    AlertDescription,
+    AlertIcon,
+    AlertTitle,
     Box,
     Button,
+    Checkbox,
     Flex,
     Icon,
     Input,
     InputGroup,
     InputLeftElement,
+    chakra,
     Text,
 } from "@chakra-ui/react";
 import { FormEventHandler, useEffect, useState } from "react";
-import { FaUserEdit } from "react-icons/fa";
+import { FaPenNib, FaUserEdit } from "react-icons/fa";
 import { mask, unMask } from "remask";
 
 interface InProps {
@@ -24,29 +30,31 @@ export const AddSubProps = (Props: { Data: any }) => {
     const [Whatsapp, setWhatsapp] = useState<string>("");
     const [WhatsappMasck, setWhatsappMasck] = useState<string>("");
     const [Email, setEmail] = useState<string>("");
+    const [Type, setType] = useState<string>("");
 
     const AddAssinantes = () => {
         if (Nome && WhatsappMasck && Email) {
             setDados([
                 ...Dados,
-                { nome: Nome, whatsapp: Whatsapp, email: Email },
+                { nome: Nome, whatsapp: Whatsapp, email: Email, tipo: Type },
             ]);
             Props.Data([
                 ...Dados,
-                { nome: Nome, whatsapp: Whatsapp, email: Email },
+                { nome: Nome, whatsapp: Whatsapp, email: Email, tipo: Type },
             ]);
             setNome("");
             setWhatsapp("");
             setWhatsappMasck("");
             setEmail("");
+            setType("");
         }
     };
 
     const MascaraWhatsapp = (e: { target: { value: any } }) => {
         const valor = e.target.value;
-        const valorLinpo = unMask(valor);
-        const masked = mask(valorLinpo, ["(99) 9999-9999", "(99) 9 9999-9999"]);
-        setWhatsapp(valorLinpo);
+        const valorLimpo = unMask(valor);
+        const masked = mask(valorLimpo, ["(99) 9999-9999", "(99) 9 9999-9999"]);
+        setWhatsapp(valorLimpo);
         setWhatsappMasck(masked);
     };
 
@@ -65,6 +73,19 @@ export const AddSubProps = (Props: { Data: any }) => {
                         onChange={(e) => setNome(e.target.value)}
                         value={Nome}
                     />
+                </InputGroup>
+                <InputGroup>
+                    <Flex gap={2} alignItems={"center"} pt={3}>
+                        <Box color="gray.400">
+                            <FaPenNib />
+                        </Box>
+                        <chakra.label color={"gray.400"}>
+                            Assinante
+                        </chakra.label>
+                        <Checkbox />
+                    </Flex>
+
+                   
                 </InputGroup>
                 <Flex gap={4} py={4}>
                     <InputGroup>
@@ -101,8 +122,18 @@ export const AddSubProps = (Props: { Data: any }) => {
                 >
                     Adicionar
                 </Button>
+                <Alert status="info" variant="left-accent" mt={2}>
+                    <AlertIcon />
+                    <Box>
+                        <AlertTitle>Atenção!</AlertTitle>
+                        <AlertDescription>
+                            Todas as alterações so serão efetuadas depois de
+                            salvar.
+                        </AlertDescription>
+                    </Box>
+                </Alert>
             </Box>
-            <Box h={"55%"} overflow={"auto"} w={"full"}>
+            <Box h={"66%"} overflow={"auto"} w={"full"}>
                 {!Dados && null}
                 {Dados &&
                     Dados.map((item: any) => {

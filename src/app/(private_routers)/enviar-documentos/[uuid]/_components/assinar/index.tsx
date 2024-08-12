@@ -43,7 +43,7 @@ export const AssinarProps = (props: { docId: string }) => {
         }
     };
 
-    console.log("session", session);
+    // console.log("session", session);
 
     return (
         <>

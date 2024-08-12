@@ -2,8 +2,9 @@
 import { Box, Button, Flex, Icon, Link, Tooltip } from "@chakra-ui/react";
 import { PdfRenderProps } from "./_components/PdfRender";
 import { AddSubProps } from "./_components/addSub";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AssinarProps } from "./_components/assinar";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function EnviarDocumentosPage({
     params,
@@ -13,6 +14,26 @@ export default function EnviarDocumentosPage({
     const { uuid } = params;
     const [Dados, setDados] = useState<any>([]);
     console.log(Dados);
+
+    const HandleSave = async () => {
+        try {
+            const Dados = {
+                data:{
+                    
+                }
+            };
+
+            const response = await fetch("/api/enviar", {
+                method: "PUT",
+                body: JSON.stringify(Dados),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <>
