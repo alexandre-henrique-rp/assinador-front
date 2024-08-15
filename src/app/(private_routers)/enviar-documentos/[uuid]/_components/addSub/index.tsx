@@ -74,18 +74,35 @@ export const AddSubProps = (Props: { Data: any }) => {
                         value={Nome}
                     />
                 </InputGroup>
-                <InputGroup>
+                <InputGroup
+                    display={"flex"}
+                    w={"full"}
+                    gap={5}
+                    justifyContent={"center"}
+                >
+                    <Flex gap={2} alignItems={"center"} pt={3}>
+                        <chakra.label color={"gray.400"}>
+                            Tipo de Assinatura
+                        </chakra.label>
+                    </Flex>
                     <Flex gap={2} alignItems={"center"} pt={3}>
                         <Box color="gray.400">
                             <FaPenNib />
                         </Box>
                         <chakra.label color={"gray.400"}>
-                            Assinante
+                            Signatário
                         </chakra.label>
                         <Checkbox />
                     </Flex>
-
-                   
+                    <Flex gap={2} alignItems={"center"} pt={3}>
+                        <Box color="gray.400">
+                            <FaPenNib />
+                        </Box>
+                        <chakra.label color={"gray.400"}>
+                            Testemunha
+                        </chakra.label>
+                        <Checkbox />
+                    </Flex>
                 </InputGroup>
                 <Flex gap={4} py={4}>
                     <InputGroup>

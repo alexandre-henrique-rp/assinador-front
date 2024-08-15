@@ -213,16 +213,14 @@ export async function GET(
         const retornoUuid = await requestUUid.json();
         
         const [dados] = await retornoUuid.data;
-        console.log("🚀 ~ dados:", dados)
-        console.log("🚀 ~ dados:", dados)
-        const Assinaturas = dados.attributes.assinaturas;
+        const Assinaturas = dados.attributes.assinaturas.data;
         console.log("🚀 ~ Assinaturas:", Assinaturas)
         const docId = dados.attributes.doc.data.id;
         const filename = dados.attributes.nome;
 
         let pdfBuffer;
 
-        if (!!Assinaturas) {
+        if (Assinaturas.length > 0) {
             const requestManifesto = await Manifesto(Assinaturas, ID, filename);
             const requestPdf = await RequestPdf(docId);
 
